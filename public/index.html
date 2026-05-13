@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -87,20 +94,20 @@
                         "h1": ["Manrope"]
                     },
                     "fontSize": {
-                        "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
-                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                        "display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "h1": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                        "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h1": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600" }]
                     }
                 },
             },
         }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
@@ -108,227 +115,261 @@
         }
     </style>
 </head>
+
 <body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
-<!-- TopAppBar -->
-<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-[0_4px_20px_rgba(30,41,59,0.05)] sticky top-0 z-50">
-<div class="flex justify-between items-center h-16 w-full max-w-[1280px] mx-auto px-8">
-<div class="text-xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tighter font-['Manrope'] antialiased tracking-tight">
+    <!-- TopAppBar -->
+    <header
+        class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-[0_4px_20px_rgba(30,41,59,0.05)] sticky top-0 z-50">
+        <div class="flex justify-between items-center h-16 w-full max-w-[1280px] mx-auto px-8">
+            <div
+                class="text-xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tighter font-['Manrope'] antialiased tracking-tight">
                 Scholar p-index
             </div>
-<div class="flex items-center gap-6">
-<span class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-medium uppercase tracking-widest cursor-pointer hover:text-slate-900 transition-colors">About Method</span>
-<div class="flex gap-4">
-<span class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90" data-icon="help_outline">help_outline</span>
-<span class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90" data-icon="settings">settings</span>
-</div>
-</div>
-</div>
-</header>
-<main class="flex-grow w-full max-w-[800px] mx-auto px-8 py-margin-page space-y-stack-lg">
-<!-- Search Section -->
-<section class="space-y-stack-md">
-<div class="space-y-2">
-<h1 class="font-h1 text-h1 text-primary">Academic Record Search</h1>
-<p class="text-on-primary-container font-body-md">Identify a researcher to begin the p-index calculation.</p>
-</div>
-<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-slate-200 shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-gutter">
-<div class="space-y-2">
-<label class="font-label-caps text-label-caps text-on-surface-variant">First Name</label>
-<input id="first_name" class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200" placeholder="e.g. Elena" type="text"/>
-</div>
-<div class="space-y-2">
-<label class="font-label-caps text-label-caps text-on-surface-variant">Last Name</label>
-<input id="last_name" class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200" placeholder="e.g. Vance" type="text"/>
-</div>
-</div>
-<button id="search_btn" class="w-full bg-primary text-on-primary font-h3 py-4 rounded-lg hover:shadow-lg transition-all active:scale-[0.98]">
+            <div class="flex items-center gap-6">
+                <a href="/p-index-paper.pdf" target="_blank"
+                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-medium uppercase tracking-widest cursor-pointer hover:text-slate-900 transition-colors">About
+                    Method</a>
+                <div class="flex gap-4">
+                    <span
+                        class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90"
+                        data-icon="help_outline">help_outline</span>
+                    <span
+                        class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90"
+                        data-icon="settings">settings</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow w-full max-w-[800px] mx-auto px-8 py-margin-page space-y-stack-lg">
+        <!-- Search Section -->
+        <section class="space-y-stack-md">
+            <div class="space-y-2 text-center">
+                <h1 class="font-h1 text-h1 text-primary">Academic Record Search</h1>
+                <p class="text-on-primary-container font-body-md">Identify a researcher to begin the p-index
+                    calculation.</p>
+            </div>
+            <div
+                class="bg-surface-container-lowest p-stack-md rounded-xl border border-slate-200 shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-gutter">
+                    <div class="space-y-2">
+                        <label class="font-label-caps text-label-caps text-on-surface-variant">First Name</label>
+                        <input id="first_name"
+                            class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
+                            placeholder="e.g. Elena" type="text" />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label-caps text-label-caps text-on-surface-variant">Last Name</label>
+                        <input id="last_name"
+                            class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
+                            placeholder="e.g. Vance" type="text" />
+                    </div>
+                </div>
+                <button id="search_btn"
+                    class="w-full bg-primary text-on-primary font-h3 py-4 rounded-lg hover:shadow-lg transition-all active:scale-[0.98]">
                     Search Academic Records
                 </button>
-</div>
-</section>
-<!-- Matching Researchers Section -->
-<section class="space-y-stack-sm">
-<h2 class="font-h2 text-h2 text-primary">Matching Researchers</h2>
-<div id="researchers_list" class="space-y-stack-sm">
-<!-- Active State Card -->
-<div class="group relative bg-white p-gutter border-l-4 border-secondary rounded-r-lg shadow-sm flex justify-between items-center transition-all cursor-pointer">
-<div class="flex items-center gap-gutter">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged female academic with a warm, confident expression. She is in a brightly lit, modern university office with blurred bookshelves in the background. The lighting is soft and natural, emphasizing a professional and intellectual mood consistent with a high-end research application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7O7jwETVBdkv-UcPhWVx8ODG9x5UeD2uqeup0wnSZTiGkeWjir48Zs1UvD1gTh9L4qybwXZklGSRc7FYVs5HdhlmaYBKeXm5zQmAfQA5nduIWD4ADHRVqfxIeyzot59wsPKN3G0LYM8praIDKRQMuiPNvA4YqMeA2kkh9fxtwFhpP8GQgti5tLcM_A00gbOVhiu-Tvr6vAY08lGwMky0CJkMsUvPH55rraCQft3TkRbCJjV2C0Qhzz_kfv8WeerNAoHHvU7IPtw"/>
-</div>
-<div>
-<p class="font-h3 text-h3 text-primary">Dr. Elena Vance</p>
-<p class="text-body-sm text-on-surface-variant">Oxford University • Cognitive Neuroscience</p>
-</div>
-</div>
-<div class="bg-secondary-container/10 text-secondary px-4 py-1 rounded-full text-label-caps">
+            </div>
+        </section>
+        <!-- Matching Researchers Section -->
+        <section class="space-y-stack-sm">
+            <h2 class="font-h2 text-h2 text-primary">Matching Researchers</h2>
+            <div id="researchers_list" class="space-y-stack-sm">
+                <!-- Active State Card -->
+                <div
+                    class="group relative bg-white p-gutter border-l-4 border-secondary rounded-r-lg shadow-sm flex justify-between items-center transition-all cursor-pointer">
+                    <div class="flex items-center gap-gutter">
+                        <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100">
+                            <img class="w-full h-full object-cover"
+                                data-alt="A professional headshot of a middle-aged female academic with a warm, confident expression. She is in a brightly lit, modern university office with blurred bookshelves in the background. The lighting is soft and natural, emphasizing a professional and intellectual mood consistent with a high-end research application."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7O7jwETVBdkv-UcPhWVx8ODG9x5UeD2uqeup0wnSZTiGkeWjir48Zs1UvD1gTh9L4qybwXZklGSRc7FYVs5HdhlmaYBKeXm5zQmAfQA5nduIWD4ADHRVqfxIeyzot59wsPKN3G0LYM8praIDKRQMuiPNvA4YqMeA2kkh9fxtwFhpP8GQgti5tLcM_A00gbOVhiu-Tvr6vAY08lGwMky0CJkMsUvPH55rraCQft3TkRbCJjV2C0Qhzz_kfv8WeerNAoHHvU7IPtw" />
+                        </div>
+                        <div>
+                            <p class="font-h3 text-h3 text-primary">Dr. Elena Vance</p>
+                            <p class="text-body-sm text-on-surface-variant">Oxford University • Cognitive Neuroscience
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-secondary-container/10 text-secondary px-4 py-1 rounded-full text-label-caps">
                         Active Selection
                     </div>
-</div>
-<!-- Inactive Card -->
-<div class="group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer">
-<div class="flex items-center gap-gutter">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 opacity-60">
-<img class="w-full h-full object-cover" data-alt="A formal professional portrait of a male researcher in his late 40s wearing a charcoal blazer. The background is a minimalist, light gray studio setting with clean, high-key lighting that creates a bright and airy aesthetic. The image conveys an intellectual and disciplined brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsJuxjSus9g47DpP6sr_HU0092goOCnmpFeLCEKlUzUVLu_kKCEkifp4Mdxti8u2bJ3uzM_XyuQKcFIy58urc7XKrV8tWUgV3eKw90c6bERZPmnrGPsEZ5OOZdtacYzeSUsLc7iMFiYVuYD_is_O7zRipkkbOspE3xYZDwnFCccNjbIM-XClMLRDipN9-D5Lrkz2PmFaIxRL68Td-lZmLC3j1naNUpOgJ-7mcgyEzmZ5ktXaCmbnmToYvezYZ2AHGWXC0iubfIlEE"/>
-</div>
-<div>
-<p class="font-h3 text-h3 text-slate-400">Dr. Elias Vance</p>
-<p class="text-body-sm text-slate-400">Stanford University • Particle Physics</p>
-</div>
-</div>
-<button class="text-primary hover:underline font-label-caps">Select Profile</button>
-</div>
-</div>
-</section>
-<!-- Publication Dataset Section -->
-<section class="space-y-stack-sm">
-<div class="flex justify-between items-end">
-<h2 class="font-h2 text-h2 text-primary">Publication Dataset</h2>
-<span id="papers_count" class="text-body-sm text-on-primary-container">0 Papers Found</span>
-</div>
-<div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-slate-50 border-b border-slate-200">
-<th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
-<th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
-<th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-16">Action</th>
-</tr>
-</thead>
-<tbody id="papers_list" class="divide-y divide-slate-100">
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-gutter py-4">
-<p class="font-body-md font-semibold text-primary">Neural Plasticity in Adult Learning Models</p>
-<p class="text-body-sm text-on-surface-variant italic">Journal of Neuroscience, 2021</p>
-</td>
-<td class="px-gutter py-4 text-right font-mono text-primary">482</td>
-<td class="px-gutter py-4 text-center">
-<button class="text-slate-400 hover:text-error transition-colors">
-<span class="material-symbols-outlined" data-icon="close">close</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-gutter py-4">
-<p class="font-body-md font-semibold text-primary">Mapping the Prefrontal Cortex: A Meta-Analysis</p>
-<p class="text-body-sm text-on-surface-variant italic">Nature Reviews, 2019</p>
-</td>
-<td class="px-gutter py-4 text-right font-mono text-primary">1,105</td>
-<td class="px-gutter py-4 text-center">
-<button class="text-slate-400 hover:text-error transition-colors">
-<span class="material-symbols-outlined" data-icon="close">close</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-gutter py-4">
-<p class="font-body-md font-semibold text-primary">Dopaminergic Pathways and Reward Seeking</p>
-<p class="text-body-sm text-on-surface-variant italic">Cell Research, 2023</p>
-</td>
-<td class="px-gutter py-4 text-right font-mono text-primary">92</td>
-<td class="px-gutter py-4 text-center">
-<button class="text-slate-400 hover:text-error transition-colors">
-<span class="material-symbols-outlined" data-icon="close">close</span>
-</button>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="p-4 bg-slate-50 text-center border-t border-slate-200">
-<button class="text-body-sm text-secondary font-semibold hover:underline">View All 124 Publications</button>
-</div>
-</div>
-</section>
-<!-- Calculate Button -->
-<div class="pt-stack-md">
-<button id="calculate_btn" class="w-full bg-primary text-on-primary font-h2 py-6 rounded-xl hover:shadow-[0_8px_30px_rgba(9,20,38,0.2)] transition-all hover:-translate-y-1 active:translate-y-0 active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:active:scale-100">
-<span class="material-symbols-outlined" data-icon="calculate" style="font-variation-settings: 'FILL' 1;">calculate</span>
+                </div>
+                <!-- Inactive Card -->
+                <div
+                    class="group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer">
+                    <div class="flex items-center gap-gutter">
+                        <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-100 opacity-60">
+                            <img class="w-full h-full object-cover"
+                                data-alt="A formal professional portrait of a male researcher in his late 40s wearing a charcoal blazer. The background is a minimalist, light gray studio setting with clean, high-key lighting that creates a bright and airy aesthetic. The image conveys an intellectual and disciplined brand personality."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsJuxjSus9g47DpP6sr_HU0092goOCnmpFeLCEKlUzUVLu_kKCEkifp4Mdxti8u2bJ3uzM_XyuQKcFIy58urc7XKrV8tWUgV3eKw90c6bERZPmnrGPsEZ5OOZdtacYzeSUsLc7iMFiYVuYD_is_O7zRipkkbOspE3xYZDwnFCccNjbIM-XClMLRDipN9-D5Lrkz2PmFaIxRL68Td-lZmLC3j1naNUpOgJ-7mcgyEzmZ5ktXaCmbnmToYvezYZ2AHGWXC0iubfIlEE" />
+                        </div>
+                        <div>
+                            <p class="font-h3 text-h3 text-slate-400">Dr. Elias Vance</p>
+                            <p class="text-body-sm text-slate-400">Stanford University • Particle Physics</p>
+                        </div>
+                    </div>
+                    <button class="text-primary hover:underline font-label-caps">Select Profile</button>
+                </div>
+            </div>
+        </section>
+        <!-- Publication Dataset Section -->
+        <section class="space-y-stack-sm">
+            <div class="flex justify-between items-end">
+                <h2 class="font-h2 text-h2 text-primary">Publication Dataset</h2>
+                <span id="papers_count" class="text-body-sm text-on-primary-container">0 Papers Found</span>
+            </div>
+            <div
+                class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-16">Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="papers_list" class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-gutter py-4">
+                                <p class="font-body-md font-semibold text-primary">Neural Plasticity in Adult Learning
+                                    Models</p>
+                                <p class="text-body-sm text-on-surface-variant italic">Journal of Neuroscience, 2021</p>
+                            </td>
+                            <td class="px-gutter py-4 text-right font-mono text-primary">482</td>
+                            <td class="px-gutter py-4 text-center">
+                                <button class="text-slate-400 hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="close">close</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-gutter py-4">
+                                <p class="font-body-md font-semibold text-primary">Mapping the Prefrontal Cortex: A
+                                    Meta-Analysis</p>
+                                <p class="text-body-sm text-on-surface-variant italic">Nature Reviews, 2019</p>
+                            </td>
+                            <td class="px-gutter py-4 text-right font-mono text-primary">1,105</td>
+                            <td class="px-gutter py-4 text-center">
+                                <button class="text-slate-400 hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="close">close</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-gutter py-4">
+                                <p class="font-body-md font-semibold text-primary">Dopaminergic Pathways and Reward
+                                    Seeking</p>
+                                <p class="text-body-sm text-on-surface-variant italic">Cell Research, 2023</p>
+                            </td>
+                            <td class="px-gutter py-4 text-right font-mono text-primary">92</td>
+                            <td class="px-gutter py-4 text-center">
+                                <button class="text-slate-400 hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="close">close</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="p-4 bg-slate-50 text-center border-t border-slate-200">
+                    <button class="text-body-sm text-secondary font-semibold hover:underline">View All 124
+                        Publications</button>
+                </div>
+            </div>
+        </section>
+        <!-- Calculate Button -->
+        <div class="pt-stack-md">
+            <button id="calculate_btn"
+                class="w-full bg-primary text-on-primary font-h2 py-6 rounded-xl hover:shadow-[0_8px_30px_rgba(9,20,38,0.2)] transition-all hover:-translate-y-1 active:translate-y-0 active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:active:scale-100">
+                <span class="material-symbols-outlined" data-icon="calculate"
+                    style="font-variation-settings: 'FILL' 1;">calculate</span>
                 Calculate p-index
             </button>
-</div>
-<!-- Results Area -->
-<section class="py-stack-lg border-t-2 border-dashed border-slate-200">
-<div class="text-center space-y-4">
-<p class="font-label-caps text-on-primary-container">Calculation Result</p>
-<div class="inline-block relative">
-<h2 id="result_container" class="font-display text-display text-primary leading-none hidden">
+        </div>
+        <!-- Results Area -->
+        <section class="py-stack-lg border-t-2 border-dashed border-slate-200">
+            <div class="text-center space-y-4">
+                <p class="font-label-caps text-on-primary-container">Calculation Result</p>
+                <div class="inline-block relative">
+                    <h2 id="result_container" class="font-display text-display text-primary leading-none hidden">
                         Researcher's P-Index is <span id="result_value" class="text-secondary">-</span>
-</h2>
-<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20"></div>
-</div>
-<p class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4">
-                    Based on 121 verified publications across 8 high-impact journals. The p-index measures sustained disciplinary contribution over a decade-long rolling window.
+                    </h2>
+                    <div
+                        class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20">
+                    </div>
+                </div>
+                <p class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4">
+                    Based on 121 verified publications across 8 high-impact journals. The p-index measures sustained
+                    disciplinary contribution over a decade-long rolling window.
                 </p>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 full-width mt-auto">
-<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
-<div class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 full-width mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
+            <div
+                class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
                 © 2024 Scholar Research. Built for disciplined academic inquiry.
             </div>
-<nav class="flex gap-8">
-<a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors" href="#">Methodology</a>
-<a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors" href="#">Privacy Policy</a>
-<a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors" href="#">Terms of Service</a>
-<a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors" href="#">API Support</a>
-</nav>
-</div>
-</footer>
-<script>
-    let currentPapers = [];
+            <nav class="flex gap-8">
+                <a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors"
+                    href="/p-index-paper.pdf" target="_blank">Methodology</a>
+            </nav>
+        </div>
+    </footer>
+    <script>
+        let currentPapers = [];
 
-    document.getElementById('search_btn').addEventListener('click', async () => {
-        const firstName = document.getElementById('first_name').value.trim();
-        const lastName = document.getElementById('last_name').value.trim();
-        
-        if (!firstName || !lastName) {
-            alert('Please enter both First Name and Last Name.');
-            return;
-        }
+        document.getElementById('search_btn').addEventListener('click', async () => {
+            const firstName = document.getElementById('first_name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
 
-        const searchBtn = document.getElementById('search_btn');
-        searchBtn.textContent = 'Searching...';
-        searchBtn.disabled = true;
-        
-        document.getElementById('researchers_list').innerHTML = '<p class="text-on-surface-variant">Loading researchers...</p>';
-        document.getElementById('papers_list').innerHTML = '';
-        document.getElementById('papers_count').textContent = '0 Papers Found';
-        document.getElementById('result_container').classList.add('hidden');
-        currentPapers = [];
-
-        try {
-            const res = await fetch('/api/search', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ first_name: firstName, last_name: lastName })
-            });
-            const data = await res.json();
-            
-            if (data.researchers && data.researchers.length > 0) {
-                renderResearchers(data.researchers);
-            } else {
-                document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
+            if (!firstName || !lastName) {
+                alert('Please enter both First Name and Last Name.');
+                return;
             }
-        } catch (err) {
-            console.error(err);
-            document.getElementById('researchers_list').innerHTML = '<p class="text-error">Error fetching researchers.</p>';
-        } finally {
-            searchBtn.textContent = 'Search Academic Records';
-            searchBtn.disabled = false;
-        }
-    });
 
-    function renderResearchers(researchers) {
-        const list = document.getElementById('researchers_list');
-        list.innerHTML = '';
-        
-        researchers.forEach(r => {
-            const card = document.createElement('div');
-            card.className = "group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer";
-            card.innerHTML = `
+            const searchBtn = document.getElementById('search_btn');
+            searchBtn.textContent = 'Searching...';
+            searchBtn.disabled = true;
+
+            document.getElementById('researchers_list').innerHTML = '<p class="text-on-surface-variant">Loading researchers...</p>';
+            document.getElementById('papers_list').innerHTML = '';
+            document.getElementById('papers_count').textContent = '0 Papers Found';
+            document.getElementById('result_container').classList.add('hidden');
+            currentPapers = [];
+
+            try {
+                const res = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ first_name: firstName, last_name: lastName })
+                });
+                const data = await res.json();
+
+                if (data.researchers && data.researchers.length > 0) {
+                    renderResearchers(data.researchers);
+                } else {
+                    document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('researchers_list').innerHTML = '<p class="text-error">Error fetching researchers.</p>';
+            } finally {
+                searchBtn.textContent = 'Search Academic Records';
+                searchBtn.disabled = false;
+            }
+        });
+
+        function renderResearchers(researchers) {
+            const list = document.getElementById('researchers_list');
+            list.innerHTML = '';
+
+            researchers.forEach(r => {
+                const card = document.createElement('div');
+                card.className = "group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer";
+                card.innerHTML = `
                 <div class="flex items-center gap-gutter">
                     <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200 flex items-center justify-center font-bold text-slate-500">
                         ${r.display_name.charAt(0)}
@@ -340,62 +381,62 @@
                 </div>
                 <button class="text-primary hover:underline font-label-caps select-profile-btn" data-id="${r.researcher_id}">Select Profile</button>
             `;
-            list.appendChild(card);
-        });
-
-        document.querySelectorAll('.select-profile-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const rid = e.target.getAttribute('data-id');
-                // Optional: add visual active state
-                document.querySelectorAll('.select-profile-btn').forEach(b => b.textContent = 'Select Profile');
-                e.target.textContent = 'Selected';
-                fetchPapers(rid);
+                list.appendChild(card);
             });
-        });
-    }
 
-    async function fetchPapers(researcherId) {
-        const list = document.getElementById('papers_list');
-        list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-on-surface-variant">Loading papers...</td></tr>';
-        
-        try {
-            const res = await fetch('/api/papers', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ researcher_id: researcherId })
+            document.querySelectorAll('.select-profile-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const rid = e.target.getAttribute('data-id');
+                    // Optional: add visual active state
+                    document.querySelectorAll('.select-profile-btn').forEach(b => b.textContent = 'Select Profile');
+                    e.target.textContent = 'Selected';
+                    fetchPapers(rid);
+                });
             });
-            const data = await res.json();
-            
-            if (data.papers) {
-                currentPapers = data.papers;
-                renderPapers();
-            }
-        } catch (err) {
-            console.error(err);
-            list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-error">Error fetching papers.</td></tr>';
         }
-    }
 
-    function renderPapers() {
-        const list = document.getElementById('papers_list');
-        list.innerHTML = '';
-        document.getElementById('papers_count').textContent = \`\${currentPapers.length} Papers Found\`;
+        async function fetchPapers(researcherId) {
+            const list = document.getElementById('papers_list');
+            list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-on-surface-variant">Loading papers...</td></tr>';
+
+            try {
+                const res = await fetch('/api/papers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ researcher_id: researcherId })
+                });
+                const data = await res.json();
+
+                if (data.papers) {
+                    currentPapers = data.papers;
+                    renderPapers();
+                }
+            } catch (err) {
+                console.error(err);
+                list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-error">Error fetching papers.</td></tr>';
+            }
+        }
+
+        function renderPapers() {
+            const list = document.getElementById('papers_list');
+            list.innerHTML = '';
+            document.getElementById('papers_count').textContent = `${currentPapers.length} Papers Found`;
         
         currentPapers.forEach((p, idx) => {
             const tr = document.createElement('tr');
             tr.className = "hover:bg-slate-50 transition-colors";
-            tr.innerHTML = \`
+            tr.innerHTML = `
                 <td class="px-gutter py-4">
-                    <p class="font-body-md font-semibold text-primary">\${p.title}</p>
-                    <p class="text-body-sm text-on-surface-variant italic">\${p.journal}, \${p.year}</p>
+                    <p class="font-body-md font-semibold text-primary">${p.title}</p>
+                    <p class="text-body-sm text-on-surface-variant italic">${p.journal}, ${p.year}</p>
                 </td>
-                <td class="px-gutter py-4 text-right font-mono text-primary">\${p.times_cited}</td>
+                <td class="px-gutter py-4 text-right font-mono text-primary">${p.times_cited}</td>
                 <td class="px-gutter py-4 text-center">
-                    <button class="text-slate-400 hover:text-error transition-colors remove-paper-btn" data-idx="\${idx}">
+                    <button class="text-slate-400 hover:text-error transition-colors remove-paper-btn" data-idx="${idx}">
                         <span class="material-symbols-outlined" data-icon="close">close</span>
                     </button>
                 </td>
-            \`;
+            `;
             list.appendChild(tr);
         });
 
@@ -416,7 +457,7 @@
 
         const calcBtn = document.getElementById('calculate_btn');
         const originalText = calcBtn.innerHTML;
-        calcBtn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings: \\'FILL\\' 1;">hourglass_empty</span> Calculating...';
+        calcBtn.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hourglass_empty</span> Calculating...`;
         calcBtn.disabled = true;
 
         try {
@@ -442,5 +483,7 @@
             calcBtn.disabled = false;
         }
     });
-</script>
-</body></html>
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,21 @@ from framework.pindex import compute_pindex
 import pandas as pd
 import numpy as np
 
-app = Flask(__name__)
+import os
+from flask import Flask, request, jsonify, send_from_directory
+
+# Configure Flask to serve static files from the public folder
+app = Flask(__name__, static_folder='../public', static_url_path='/')
+
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    if os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/api/search', methods=['POST'])
 def search():
