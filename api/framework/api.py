@@ -1,6 +1,7 @@
+import os
 import requests
 
-API_KEY = "e79d99c5f006c46e7981921000444ea84e9e0316"   
+API_KEY = os.environ.get("WOS_API_KEY", "e79d99c5f006c46e7981921000444ea84e9e0316")   
 BASE_URL = "https://api.clarivate.com/apis/wos-starter/v1"
 DOCS_URL = f"{BASE_URL}/documents"
 

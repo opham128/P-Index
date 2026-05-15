@@ -34,12 +34,19 @@ def search():
     if df.empty:
         return jsonify({'researchers': []})
         
+    from framework.api import wos_search
     profiles = []
     for rid, group in df.groupby('researcher_id'):
         if pd.isna(rid) or not rid:
             continue
         display_name = group.iloc[0]['display_name']
-        count = counter.get(rid, 0)
+        
+        try:
+            res = wos_search(f'AI=("{rid}")', limit=1)
+            count = res.get('metadata', {}).get('total', 0)
+        except Exception:
+            count = counter.get(rid, 0)
+            
         profiles.append({
             'researcher_id': rid,
             'display_name': display_name,

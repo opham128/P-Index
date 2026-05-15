@@ -63,7 +63,7 @@ def keep_target_author(df, first_name, last_name):
 def get_papers_by_researcher_id(researcher_id, max_pages=20, limit=50):
     rows = []
     seen = set()
-    query = f'AI=("{researcher_id}") AND DT=("Article" OR "Review")'
+    query = f'AI=("{researcher_id}")'
 
     for page in range(1, max_pages + 1):
         data = wos_search(query, page=page, limit=limit)
@@ -94,5 +94,4 @@ def get_papers_by_researcher_id(researcher_id, max_pages=20, limit=50):
         return df
 
     df = df.drop_duplicates(subset=["uid"], keep="first")
-    df = df.drop_duplicates(subset=["title", "year"], keep="first")
     return df.reset_index(drop=True)
