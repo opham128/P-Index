@@ -190,7 +190,9 @@
                         <tr class="bg-slate-50 border-b border-slate-200">
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-16">Action
+                            <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
+                                <span class="font-label-caps block">Select/Exclude</span>
+                                <span class="text-xs font-normal normal-case text-slate-400">Toggle to exclude from calculation</span>
                             </th>
                         </tr>
                     </thead>
@@ -212,6 +214,9 @@
                     style="font-variation-settings: 'FILL' 1;">calculate</span>
                 Calculate p-index
             </button>
+            <p class="text-center text-body-sm text-slate-500 mt-4 italic">
+                Disclaimer: The deep citation calculation fetches thousands of baseline reference records and may take several minutes to complete.
+            </p>
         </div>
         <!-- Results Area -->
         <section class="py-stack-lg border-t-2 border-dashed border-slate-200">
@@ -219,15 +224,13 @@
                 <p class="font-label-caps text-on-primary-container">Calculation Result</p>
                 <div class="inline-block relative">
                     <h2 id="result_container" class="font-display text-display text-primary leading-none hidden">
-                        Researcher's P-Index is <span id="result_value" class="text-secondary">-</span>
+                        <span id="result_name">Researcher</span>'s P-Index is <span id="result_value" class="text-secondary">-</span>
                     </h2>
                     <div
                         class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20">
                     </div>
                 </div>
-                <p class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4">
-                    Based on 121 verified publications across 8 high-impact journals. The p-index measures sustained
-                    disciplinary contribution over a decade-long rolling window.
+                <p id="result_description" class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4 hidden">
                 </p>
             </div>
         </section>
@@ -248,6 +251,7 @@
     </footer>
     <script>
         let currentPapers = [];
+        let currentResearcherName = '';
 
         document.getElementById('search_btn').addEventListener('click', async () => {
             const firstName = document.getElementById('first_name').value.trim();
@@ -296,7 +300,7 @@
 
             researchers.forEach(r => {
                 const card = document.createElement('div');
-                card.className = "group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer";
+                card.className = "researcher-card group bg-surface-container-lowest p-gutter border border-slate-200 rounded-lg flex justify-between items-center hover:shadow-md transition-all cursor-pointer";
                 card.innerHTML = `
                 <div class="flex items-center gap-gutter">
                     <div class="w-12 h-12 rounded-full overflow-hidden bg-slate-200 flex items-center justify-center font-bold text-slate-500">
@@ -328,6 +332,10 @@
                     // Highlight selected card
                     const activeCard = e.target.closest('.researcher-card');
                     activeCard.className = "researcher-card group relative bg-primary-fixed/40 p-gutter border border-slate-200 border-l-4 border-l-secondary rounded-r-lg shadow-sm flex justify-between items-center transition-all cursor-pointer";
+
+                    // Store the selected researcher's name for use in results
+                    const nameEl = activeCard.querySelector('.font-h3');
+                    currentResearcherName = nameEl ? nameEl.textContent.trim() : 'Researcher';
 
                     e.target.textContent = 'Active Selection';
                     e.target.className = 'bg-secondary text-white px-3 py-1.5 rounded-full text-label-caps select-profile-btn cursor-default';
@@ -362,37 +370,48 @@
         function renderPapers() {
             const list = document.getElementById('papers_list');
             list.innerHTML = '';
-            document.getElementById('papers_count').textContent = `${currentPapers.length} Papers Found`;
-
+            
+            const activeCount = currentPapers.filter(p => !p.excluded).length;
+            document.getElementById('papers_count').textContent = `${activeCount} Papers Included`;
+        
             currentPapers.forEach((p, idx) => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.className = p.excluded ? "bg-slate-100 opacity-50 transition-colors grayscale" : "hover:bg-slate-50 transition-colors";
+                
+                const actionButton = p.excluded 
+                    ? `<button class="text-secondary hover:text-primary transition-colors toggle-paper-btn" data-idx="${idx}" title="Reinclude Paper">
+                            <span class="material-symbols-outlined" data-icon="add">add</span>
+                       </button>`
+                    : `<button class="text-slate-400 hover:text-error transition-colors toggle-paper-btn" data-idx="${idx}" title="Exclude Paper">
+                            <span class="material-symbols-outlined" data-icon="close">close</span>
+                       </button>`;
+
                 tr.innerHTML = `
-                <td class="px-gutter py-4">
-                    <p class="font-body-md font-semibold text-primary">${p.title}</p>
-                    <p class="text-body-sm text-on-surface-variant italic">${p.journal}, ${p.year}</p>
-                </td>
-                <td class="px-gutter py-4 text-right font-mono text-primary">${p.times_cited}</td>
-                <td class="px-gutter py-4 text-center">
-                    <button class="text-slate-400 hover:text-error transition-colors remove-paper-btn" data-idx="${idx}">
-                        <span class="material-symbols-outlined" data-icon="close">close</span>
-                    </button>
-                </td>
-            `;
+                    <td class="px-gutter py-4">
+                        <p class="font-body-md font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
+                        <p class="text-body-sm text-on-surface-variant italic">${p.journal}, ${p.year}</p>
+                    </td>
+                    <td class="px-gutter py-4 text-right font-mono text-primary ${p.excluded ? 'line-through' : ''}">${p.times_cited}</td>
+                    <td class="px-gutter py-4 text-center">
+                        ${actionButton}
+                    </td>
+                `;
                 list.appendChild(tr);
             });
 
-            document.querySelectorAll('.remove-paper-btn').forEach(btn => {
+            document.querySelectorAll('.toggle-paper-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const idx = parseInt(e.currentTarget.getAttribute('data-idx'));
-                    currentPapers.splice(idx, 1);
+                    currentPapers[idx].excluded = !currentPapers[idx].excluded;
                     renderPapers();
                 });
             });
         }
 
         document.getElementById('calculate_btn').addEventListener('click', async () => {
-            if (currentPapers.length === 0) {
+            const activePapers = currentPapers.filter(p => !p.excluded);
+
+            if (activePapers.length === 0) {
                 alert('No papers selected for calculation.');
                 return;
             }
@@ -402,18 +421,31 @@
             calcBtn.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hourglass_empty</span> Calculating...`;
             calcBtn.disabled = true;
 
+            // Clear previous result while calculating
+            const desc = document.getElementById('result_description');
+            desc.innerHTML = '';
+            desc.classList.add('hidden');
+            document.getElementById('result_container').classList.add('hidden');
+
             try {
                 const res = await fetch('/api/calculate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ papers: currentPapers })
+                    body: JSON.stringify({ papers: activePapers })
                 });
                 const data = await res.json();
 
                 if (data.pindex !== undefined && data.pindex !== null) {
                     document.getElementById('result_container').classList.remove('hidden');
+                    // Set researcher name in heading
+                    document.getElementById('result_name').textContent = currentResearcherName || 'Researcher';
                     // Format to 2 decimal places
                     document.getElementById('result_value').textContent = parseFloat(data.pindex).toFixed(2);
+                    
+                    const uniqueJournals = new Set(activePapers.map(p => p.journal).filter(j => j && j.trim() !== '')).size;
+                    const asOf = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    desc.innerHTML = `Based on ${activePapers.length} verified publications across ${uniqueJournals} journals.<br/><span class="text-xs text-slate-400 mt-1 block">As of ${asOf}</span>`;
+                    desc.classList.remove('hidden');
                 } else {
                     alert('Could not calculate p-index. Result was null.');
                 }

@@ -1,5 +1,9 @@
 import os
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables from .env file for local development
+load_dotenv()
 
 API_KEY = os.environ.get("WOS_API_KEY")
 BASE_URL = "https://api.clarivate.com/apis/wos-starter/v1"

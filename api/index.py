@@ -86,10 +86,10 @@ def calculate():
         
     df = pd.DataFrame(papers_list)
     
-    out_df, pindex_score = compute_pindex(df)
+    out_df, pindex_score, total_docs = compute_pindex(df)
     
     # Handle NaN in pindex_score
     if pd.isna(pindex_score):
         pindex_score = None
         
-    return jsonify({'pindex': pindex_score})
+    return jsonify({'pindex': pindex_score, 'total_docs': total_docs})
