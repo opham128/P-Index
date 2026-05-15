@@ -28,10 +28,16 @@ def find_researcher_ids(first_name, last_name, max_pages=5, limit=10):
                     rid = a.get("researcherId")
 
                     if is_target_author(display_name, first_name, last_name):
+                        # WOS returns "Last, First" — convert to "First Last"
+                        if "," in display_name:
+                            parts = display_name.split(",", 1)
+                            formatted_name = f"{parts[1].strip()} {parts[0].strip()}"
+                        else:
+                            formatted_name = display_name
                         rows.append({
                             "uid": uid,
                             "title": title,
-                            "display_name": display_name,
+                            "display_name": formatted_name,
                             "researcher_id": rid
                         })
                         if rid:
