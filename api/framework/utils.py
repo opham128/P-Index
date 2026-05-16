@@ -17,13 +17,16 @@ def is_target_author(display_name, first_name, last_name):
     f, l = normalize_name(display_name)
     return f == first_name.strip().lower() and l == last_name.strip().lower()
 
-def build_name_queries(first_name, last_name):
+def build_name_queries(first_name, last_name, org=None):
     initial = first_name[0]
-    return [
+    base_queries = [
         f'AU=("{last_name}, {first_name}")',
         f'AU=("{first_name} {last_name}")',
         f'AU=("{last_name} {initial}")'
     ]
+    if org and org.strip():
+        return [f'{q} AND OG=("{org.strip()}")' for q in base_queries]
+    return base_queries
 
 def get_times_cited(x):
     citations = x.get("citations", [])
