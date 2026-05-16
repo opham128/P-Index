@@ -132,9 +132,9 @@
             </div>
         </div>
     </header>
-    <main class="flex-grow w-full max-w-[800px] mx-auto px-8 py-margin-page space-y-stack-lg">
+    <main class="flex-grow w-full max-w-[1000px] mx-auto px-8 py-margin-page space-y-stack-lg">
         <!-- Search Section -->
-        <section class="space-y-stack-md">
+        <section class="space-y-stack-md max-w-[800px] mx-auto">
             <div class="space-y-2 text-center">
                 <h1 class="font-h1 text-h1 text-primary">Academic Record Search</h1>
                 <p class="text-on-primary-container font-body-md">Identify a researcher to begin the p-index
@@ -173,14 +173,14 @@
             </div>
         </section>
         <!-- Matching Researchers Section -->
-        <section class="space-y-stack-sm">
+        <section class="space-y-stack-sm max-w-[800px] mx-auto">
             <h2 class="font-h2 text-h2 text-primary">Matching Researchers</h2>
             <div id="researchers_list" class="space-y-stack-sm">
                 <!-- Search results will appear here -->
             </div>
         </section>
         <!-- Publication Dataset Section -->
-        <section class="space-y-stack-sm">
+        <section class="space-y-stack-sm max-w-[800px] mx-auto">
             <div class="flex justify-between items-end">
                 <h2 class="font-h2 text-h2 text-primary">Publication Dataset</h2>
                 <span id="papers_count" class="text-body-sm text-on-primary-container">0 Papers Found</span>
@@ -190,13 +190,21 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200">
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Type</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-full"
+                                data-sort="title" data-table="papers">
+                                Title &amp; Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                data-sort="year" data-table="papers">
+                                Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-24 whitespace-nowrap">Type</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32 whitespace-nowrap"
+                                data-sort="times_cited" data-table="papers">
+                                Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
                             <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
-                                <span class="font-label-caps block">Select/Exclude</span>
-                                <span class="text-xs font-normal normal-case text-slate-400">Toggle to exclude from
-                                    calculation</span>
+                                <span class="font-label-caps block">Action</span>
                             </th>
                         </tr>
                     </thead>
@@ -211,12 +219,12 @@
             </div>
         </section>
         <!-- Calculate Button -->
-        <div class="pt-stack-md">
+        <div class="pt-stack-md max-w-[800px] mx-auto">
             <button id="calculate_btn"
                 class="w-full bg-primary text-on-primary font-h2 py-6 rounded-xl hover:shadow-[0_8px_30px_rgba(9,20,38,0.2)] transition-all hover:-translate-y-1 active:translate-y-0 active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:active:scale-100">
                 <span class="material-symbols-outlined" data-icon="calculate"
                     style="font-variation-settings: 'FILL' 1;">calculate</span>
-                Calculate p-Index
+                Calculate Researcher's p-Index
             </button>
             <p class="text-center text-body-sm text-slate-500 mt-4 italic">
                 Disclaimer: The deep citation calculation fetches thousands of baseline reference records and may take
@@ -224,13 +232,13 @@
             </p>
         </div>
         <!-- Results Area -->
-        <section class="py-stack-lg border-t-2 border-dashed border-slate-200">
+        <section class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full text-center">
             <div class="text-center space-y-4">
                 <p class="font-label-caps text-on-primary-container">Calculation Result</p>
                 <div class="inline-block relative">
-                    <h2 id="result_container" class="font-display text-display text-primary leading-none hidden">
-                        <span id="result_name">Researcher</span>'s P-Index is <span id="result_value"
-                            class="text-secondary">-</span>
+                    <h2 id="result_container" class="font-display text-display text-primary leading-none hidden flex flex-col items-center gap-6">
+                        <span><span id="result_name">Researcher</span>'s <i>p</i>-Index is</span>
+                        <span id="result_value" class="text-secondary">-</span>
                     </h2>
                     <div
                         class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20">
@@ -243,7 +251,7 @@
         <!-- Percentile Breakdown Table -->
         <section id="ranked_section" class="hidden space-y-stack-sm pb-stack-lg">
             <div class="flex justify-between items-end">
-                <h2 class="font-h2 text-h2 text-primary">Percentile Breakdown</h2>
+                <h2 class="font-h2 text-h2 text-primary">p-Index Calculation Breakdown</h2>
                 <span class="text-body-sm text-on-primary-container">Ranked by percentile, highest first</span>
             </div>
             <div
@@ -251,12 +259,26 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200">
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Type</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Cell Size</th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Article
-                                Percentile Rank
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-full"
+                                data-sort="title" data-table="ranked">
+                                Title &amp; Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-20 whitespace-nowrap"
+                                data-sort="year" data-table="ranked">
+                                Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-24 whitespace-nowrap">Type</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                data-sort="times_cited" data-table="ranked">
+                                Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32"
+                                data-sort="cell_size" data-table="ranked">
+                                # Articles Same Journal Same Year <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36"
+                                data-sort="pr" data-table="ranked">
+                                Article Percentile Rank <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
                         </tr>
                     </thead>
@@ -272,7 +294,7 @@
             class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
             <div
                 class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
-                © 2026 Scholar Research. Built for disciplined academic inquiry.
+                © 2026 Michel Tuan Pham All Rights Reserved.
             </div>
             <nav class="flex gap-8">
                 <a class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors"
@@ -282,7 +304,9 @@
     </footer>
     <script>
         let currentPapers = [];
+        let currentRankedPapers = [];
         let currentResearcherName = '';
+        let sortConfig = { key: null, direction: 'asc', table: null };
 
         document.getElementById('search_btn').addEventListener('click', async () => {
             const firstName = document.getElementById('first_name').value.trim();
@@ -421,8 +445,9 @@
                 tr.innerHTML = `
                     <td class="px-gutter py-4">
                         <p class="font-body-md font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
-                        <p class="text-body-sm text-on-surface-variant italic">${p.journal}, ${p.year}</p>
+                        <p class="text-body-sm text-on-surface-variant italic">${p.journal}</p>
                     </td>
+                    <td class="px-gutter py-4 font-mono text-slate-500">${p.year || '—'}</td>
                     <td class="px-gutter py-4 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
                         ${p.document_types || '—'}
                     </td>
@@ -483,40 +508,88 @@
                     desc.classList.remove('hidden');
 
                     // Populate percentile breakdown table
-                    const rankedSection = document.getElementById('ranked_section');
-                    const rankedList = document.getElementById('ranked_list');
-                    rankedList.innerHTML = '';
-                    const sorted = (data.ranked_papers || []).slice().sort((a, b) => (b.pr ?? -1) - (a.pr ?? -1));
-                    sorted.forEach(p => {
-                        const percentileDisplay = p.pr !== null && p.pr !== undefined
-                            ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
-                            : '<span class="text-slate-400 italic">N/A</span>';
-                        const row = document.createElement('tr');
-                        row.className = 'hover:bg-slate-50 transition-colors';
-                        row.innerHTML = `
-                            <td class="px-gutter py-3">
-                                <p class="font-body-md font-semibold text-primary text-sm">${p.title || '—'}</p>
-                                <p class="text-body-sm text-on-surface-variant italic">${p.journal || '—'}, ${p.year || '—'}</p>
-                            </td>
-                            <td class="px-gutter py-3 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
-                                ${p.document_types || '—'}
-                            </td>
-                            <td class="px-gutter py-3 text-right font-mono text-slate-700">${p.times_cited ?? '—'}</td>
-                            <td class="px-gutter py-3 text-right font-mono text-slate-400 text-sm">${p.cell_size ?? '—'}</td>
-                            <td class="px-gutter py-3 text-right">${percentileDisplay}</td>
-                        `;
-                        rankedList.appendChild(row);
-                    });
-                    rankedSection.classList.remove('hidden');
+                    currentRankedPapers = data.ranked_papers || [];
+                    // Default sort by percentile descending
+                    sortConfig = { key: 'pr', direction: 'desc', table: 'ranked' };
+                    currentRankedPapers.sort((a, b) => (b.pr ?? -1) - (a.pr ?? -1));
+                    renderRankedPapers();
                 } else {
-                    alert('Could not calculate p-index. Result was null.');
+                    alert('Could not calculate <i>p</i>-Index. Result was null.');
                 }
             } catch (err) {
                 console.error(err);
-                alert('Error calculating p-index.');
+                alert('Error calculating <i>p</i>-Index.');
             } finally {
                 calcBtn.innerHTML = originalText;
                 calcBtn.disabled = false;
+            }
+        });
+
+        function renderRankedPapers() {
+            const rankedSection = document.getElementById('ranked_section');
+            const rankedList = document.getElementById('ranked_list');
+            rankedList.innerHTML = '';
+
+            currentRankedPapers.forEach(p => {
+                const percentileDisplay = p.pr !== null && p.pr !== undefined
+                    ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
+                    : '<span class="text-slate-400 italic">N/A</span>';
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-50 transition-colors';
+                row.innerHTML = `
+                    <td class="px-gutter py-3">
+                        <p class="font-body-md font-semibold text-primary">${p.title || '—'}</p>
+                        <p class="text-body-sm text-on-surface-variant italic">${p.journal || '—'}</p>
+                    </td>
+                    <td class="px-gutter py-3 font-mono text-slate-500">${p.year || '—'}</td>
+                    <td class="px-gutter py-3 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
+                        ${p.document_types || '—'}
+                    </td>
+                    <td class="px-gutter py-3 text-right font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+                    <td class="px-gutter py-3 text-right font-mono text-slate-400">${p.cell_size ?? '—'}</td>
+                    <td class="px-gutter py-3 text-right">${percentileDisplay}</td>
+                `;
+                rankedList.appendChild(row);
+            });
+            rankedSection.classList.remove('hidden');
+        }
+
+        function sortData(key, table) {
+            const direction = (sortConfig.key === key && sortConfig.direction === 'desc') ? 'asc' : 'desc';
+            sortConfig = { key, direction, table };
+
+            const compare = (a, b) => {
+                let valA = a[key];
+                let valB = b[key];
+
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+
+                if (valA < valB) return direction === 'asc' ? -1 : 1;
+                if (valA > valB) return direction === 'asc' ? 1 : -1;
+                return 0;
+            };
+
+            if (table === 'papers') {
+                currentPapers.sort(compare);
+                renderPapers();
+            } else {
+                currentRankedPapers.sort(compare);
+                renderRankedPapers();
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            const header = e.target.closest('.sortable');
+            if (header) {
+                const key = header.getAttribute('data-sort');
+                const table = header.getAttribute('data-table');
+                sortData(key, table);
             }
         });
     </script>
