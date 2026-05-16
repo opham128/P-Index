@@ -2,8 +2,7 @@ import os
 import requests
 
 API_KEY = os.environ.get("WOS_API_KEY")
-print("API_KEY EXISTS:", bool(API_KEY))
-print("API_KEY:", API_KEY)
+
 BASE_URL = "https://api.clarivate.com/apis/wos-starter/v1"
 DOCS_URL = f"{BASE_URL}/documents"
 

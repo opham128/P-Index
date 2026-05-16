@@ -1,12 +1,15 @@
-from flask import Flask, request, jsonify
-from framework.researcher import find_researcher_ids, get_papers_by_researcher_id
-from framework.pindex import compute_pindex
+import sys
+import os
+from flask import Flask, request, jsonify, send_from_directory
 import pandas as pd
 import numpy as np
 import json
 
-import os
-from flask import Flask, request, jsonify, send_from_directory
+# Add the current directory to sys.path so framework can be imported
+sys.path.append(os.path.dirname(__file__))
+
+from framework.researcher import find_researcher_ids, get_papers_by_researcher_id
+from framework.pindex import compute_pindex
 
 # Configure Flask to serve static files from the public folder
 app = Flask(__name__, static_folder='../public', static_url_path='/')
