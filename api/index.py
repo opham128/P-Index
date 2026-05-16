@@ -3,6 +3,7 @@ from framework.researcher import find_researcher_ids, get_papers_by_researcher_i
 from framework.pindex import compute_pindex
 import pandas as pd
 import numpy as np
+import json
 
 import os
 from flask import Flask, request, jsonify, send_from_directory
@@ -25,11 +26,12 @@ def search():
     data = request.json
     first_name = data.get('first_name', '')
     last_name = data.get('last_name', '')
+    org = data.get('org', '')
     
     if not first_name or not last_name:
         return jsonify({'error': 'First and last name required'}), 400
         
-    df, counter = find_researcher_ids(first_name, last_name)
+    df, counter = find_researcher_ids(first_name, last_name, org=org or None)
     
     if df.empty:
         return jsonify({'researchers': []})
@@ -91,5 +93,11 @@ def calculate():
     # Handle NaN in pindex_score
     if pd.isna(pindex_score):
         pindex_score = None
+
+    # Serialize per-paper ranked results
+    # Use to_json -> loads to correctly handle numpy types (int64, float64) and NaN -> null
+    ranked_cols = ['title', 'journal', 'year', 'times_cited', 'pr', 'cell_size', 'document_types']
+    ranked_df = out_df[ranked_cols].copy()
+    ranked_papers = json.loads(ranked_df.to_json(orient='records'))
         
-    return jsonify({'pindex': pindex_score, 'total_docs': total_docs})
+    return jsonify({'pindex': pindex_score, 'total_docs': total_docs, 'ranked_papers': ranked_papers})

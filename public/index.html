@@ -129,14 +129,6 @@
                 <a href="/p-index-paper.pdf" target="_blank"
                     class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-medium uppercase tracking-widest cursor-pointer hover:text-slate-900 transition-colors">About
                     Method</a>
-                <div class="flex gap-4">
-                    <span
-                        class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90"
-                        data-icon="help_outline">help_outline</span>
-                    <span
-                        class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer transition-transform active:scale-90"
-                        data-icon="settings">settings</span>
-                </div>
             </div>
         </div>
     </header>
@@ -152,7 +144,8 @@
                 class="bg-surface-container-lowest p-stack-md rounded-xl border border-slate-200 shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-gutter">
                     <div class="space-y-2">
-                        <label class="font-label-caps text-label-caps text-on-surface-variant">First Name</label>
+                        <label class="font-label-caps text-label-caps text-on-surface-variant">First Name (and Middle
+                            Name)</label>
                         <input id="first_name"
                             class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
                             placeholder="e.g. John" type="text" />
@@ -163,6 +156,15 @@
                             class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
                             placeholder="e.g. Doe" type="text" />
                     </div>
+                </div>
+                <div class="space-y-2 mb-gutter">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant">Organization <span
+                            class="text-xs font-normal normal-case text-slate-400">(optional)</span></label>
+                    <input id="org_name"
+                        class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
+                        placeholder="e.g. Columbia University" type="text" />
+                    <p class="text-xs text-slate-400">Use the preferred organization name from Web of Science. Narrows
+                        results to a specific institution.</p>
                 </div>
                 <button id="search_btn"
                     class="w-full bg-primary text-on-primary font-h3 py-4 rounded-lg hover:shadow-lg transition-all active:scale-[0.98]">
@@ -189,10 +191,12 @@
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200">
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Type</th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
                             <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
                                 <span class="font-label-caps block">Select/Exclude</span>
-                                <span class="text-xs font-normal normal-case text-slate-400">Toggle to exclude from calculation</span>
+                                <span class="text-xs font-normal normal-case text-slate-400">Toggle to exclude from
+                                    calculation</span>
                             </th>
                         </tr>
                     </thead>
@@ -215,7 +219,8 @@
                 Calculate p-index
             </button>
             <p class="text-center text-body-sm text-slate-500 mt-4 italic">
-                Disclaimer: The deep citation calculation fetches thousands of baseline reference records and may take several minutes to complete.
+                Disclaimer: The deep citation calculation fetches thousands of baseline reference records and may take
+                several minutes to complete.
             </p>
         </div>
         <!-- Results Area -->
@@ -224,7 +229,8 @@
                 <p class="font-label-caps text-on-primary-container">Calculation Result</p>
                 <div class="inline-block relative">
                     <h2 id="result_container" class="font-display text-display text-primary leading-none hidden">
-                        <span id="result_name">Researcher</span>'s P-Index is <span id="result_value" class="text-secondary">-</span>
+                        <span id="result_name">Researcher</span>'s P-Index is <span id="result_value"
+                            class="text-secondary">-</span>
                     </h2>
                     <div
                         class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20">
@@ -232,6 +238,31 @@
                 </div>
                 <p id="result_description" class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4 hidden">
                 </p>
+            </div>
+        </section>
+        <!-- Percentile Breakdown Table -->
+        <section id="ranked_section" class="hidden space-y-stack-sm pb-stack-lg">
+            <div class="flex justify-between items-end">
+                <h2 class="font-h2 text-h2 text-primary">Percentile Breakdown</h2>
+                <span class="text-body-sm text-on-primary-container">Ranked by percentile, highest first</span>
+            </div>
+            <div
+                class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Title &amp; Journal</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant">Type</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Citations</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Cell Size</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right">Article
+                                Percentile Rank
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranked_list" class="divide-y divide-slate-100">
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>
@@ -256,6 +287,7 @@
         document.getElementById('search_btn').addEventListener('click', async () => {
             const firstName = document.getElementById('first_name').value.trim();
             const lastName = document.getElementById('last_name').value.trim();
+            const orgName = document.getElementById('org_name').value.trim();
 
             if (!firstName || !lastName) {
                 alert('Please enter both First Name and Last Name.');
@@ -276,7 +308,7 @@
                 const res = await fetch('/api/search', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ first_name: firstName, last_name: lastName })
+                    body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
                 });
                 const data = await res.json();
 
@@ -308,7 +340,7 @@
                     </div>
                     <div>
                         <p class="font-h3 text-h3 text-primary">${r.display_name}</p>
-                        <p class="text-body-sm text-slate-500">${r.count} Papers</p>
+                        <p class="text-body-sm text-slate-500">${r.count} Papers &bull; <span class="font-mono text-xs text-slate-400">${r.researcher_id || 'No ID'}</span></p>
                     </div>
                 </div>
                 <button class="text-primary hover:underline font-label-caps select-profile-btn" data-id="${r.researcher_id}">Select Profile</button>
@@ -370,15 +402,15 @@
         function renderPapers() {
             const list = document.getElementById('papers_list');
             list.innerHTML = '';
-            
+
             const activeCount = currentPapers.filter(p => !p.excluded).length;
             document.getElementById('papers_count').textContent = `${activeCount} Papers Included`;
-        
+
             currentPapers.forEach((p, idx) => {
                 const tr = document.createElement('tr');
                 tr.className = p.excluded ? "bg-slate-100 opacity-50 transition-colors grayscale" : "hover:bg-slate-50 transition-colors";
-                
-                const actionButton = p.excluded 
+
+                const actionButton = p.excluded
                     ? `<button class="text-secondary hover:text-primary transition-colors toggle-paper-btn" data-idx="${idx}" title="Reinclude Paper">
                             <span class="material-symbols-outlined" data-icon="add">add</span>
                        </button>`
@@ -390,6 +422,9 @@
                     <td class="px-gutter py-4">
                         <p class="font-body-md font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
                         <p class="text-body-sm text-on-surface-variant italic">${p.journal}, ${p.year}</p>
+                    </td>
+                    <td class="px-gutter py-4 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
+                        ${p.document_types || '—'}
                     </td>
                     <td class="px-gutter py-4 text-right font-mono text-primary ${p.excluded ? 'line-through' : ''}">${p.times_cited}</td>
                     <td class="px-gutter py-4 text-center">
@@ -441,11 +476,38 @@
                     document.getElementById('result_name').textContent = currentResearcherName || 'Researcher';
                     // Format to 2 decimal places
                     document.getElementById('result_value').textContent = parseFloat(data.pindex).toFixed(2);
-                    
+
                     const uniqueJournals = new Set(activePapers.map(p => p.journal).filter(j => j && j.trim() !== '')).size;
                     const asOf = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                    desc.innerHTML = `Based on ${activePapers.length} verified publications across ${uniqueJournals} journals.<br/><span class="text-xs text-slate-400 mt-1 block">As of ${asOf}</span>`;
+                    desc.innerHTML = `Based on ${activePapers.length} verified publications across ${uniqueJournals} different journals.<br/><span class="text-xs text-slate-400 mt-1 block">As of ${asOf} &bull; <strong>${(data.total_docs || 0).toLocaleString()}</strong> reference documents retrieved.</span>`;
                     desc.classList.remove('hidden');
+
+                    // Populate percentile breakdown table
+                    const rankedSection = document.getElementById('ranked_section');
+                    const rankedList = document.getElementById('ranked_list');
+                    rankedList.innerHTML = '';
+                    const sorted = (data.ranked_papers || []).slice().sort((a, b) => (b.pr ?? -1) - (a.pr ?? -1));
+                    sorted.forEach(p => {
+                        const percentileDisplay = p.pr !== null && p.pr !== undefined
+                            ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
+                            : '<span class="text-slate-400 italic">N/A</span>';
+                        const row = document.createElement('tr');
+                        row.className = 'hover:bg-slate-50 transition-colors';
+                        row.innerHTML = `
+                            <td class="px-gutter py-3">
+                                <p class="font-body-md font-semibold text-primary text-sm">${p.title || '—'}</p>
+                                <p class="text-body-sm text-on-surface-variant italic">${p.journal || '—'}, ${p.year || '—'}</p>
+                            </td>
+                            <td class="px-gutter py-3 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
+                                ${p.document_types || '—'}
+                            </td>
+                            <td class="px-gutter py-3 text-right font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+                            <td class="px-gutter py-3 text-right font-mono text-slate-400 text-sm">${p.cell_size ?? '—'}</td>
+                            <td class="px-gutter py-3 text-right">${percentileDisplay}</td>
+                        `;
+                        rankedList.appendChild(row);
+                    });
+                    rankedSection.classList.remove('hidden');
                 } else {
                     alert('Could not calculate p-index. Result was null.');
                 }

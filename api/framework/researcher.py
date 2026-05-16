@@ -5,10 +5,10 @@ from collections import Counter
 from framework.api import wos_search, get_records
 from framework.utils import build_name_queries, is_target_author, parse_record
 
-def find_researcher_ids(first_name, last_name, max_pages=5, limit=10):
+def find_researcher_ids(first_name, last_name, org=None, max_pages=5, limit=10):
     rows = []
     counter = Counter()
-    queries = build_name_queries(first_name, last_name)
+    queries = build_name_queries(first_name, last_name, org=org)
 
     for query in queries:
         for page in range(1, max_pages + 1):

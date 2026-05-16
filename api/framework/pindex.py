@@ -51,18 +51,23 @@ def compute_pindex(papers_df):
 
     cell_cache = {}
     for _, row in pairs.iterrows():
+        journal = str(row["journal"]).strip()
+        year_raw = str(row["year"]).strip().split(".")[0]  # Normalize "2021.0" -> "2021"
+        key = (journal, year_raw)
         try:
-            key = (row["journal"], row["year"])
-            cell_cache[key] = get_journal_year_cell(row["journal"], row["year"])
+            cell_cache[key] = get_journal_year_cell(journal, int(year_raw))
         except Exception as e:
-            print(f"Error fetching cell for {row['journal']} {row['year']}: {e}")
+            print(f"Error fetching cell for {journal} {year_raw}: {e}")
             cell_cache[key] = pd.DataFrame()
 
     prs = []
     cell_sizes = []
 
     for _, row in papers_df.iterrows():
-        key = (row["journal"], row["year"])
+        # Normalize key to match how it was stored in cell_cache
+        journal = str(row["journal"]).strip()
+        year_raw = str(row["year"]).strip().split(".")[0]
+        key = (journal, year_raw)
         cell_df = cell_cache.get(key, pd.DataFrame())
 
         if "times_cited" in cell_df.columns and len(cell_df) > 0:
