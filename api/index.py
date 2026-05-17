@@ -85,22 +85,35 @@ def papers():
 def calculate():
     data = request.json
     papers_list = data.get('papers', [])
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
     
     if not papers_list:
         return jsonify({'error': 'No papers provided'}), 400
         
     df = pd.DataFrame(papers_list)
     
-    out_df, pindex_score, total_docs = compute_pindex(df)
+    out_df, pindex_score, pindex_weighted, total_docs = compute_pindex(df, first_name, last_name)
     
     # Handle NaN in pindex_score
     if pd.isna(pindex_score):
         pindex_score = None
-
+    if pd.isna(pindex_weighted):
+        pindex_weighted = None
+ 
     # Serialize per-paper ranked results
     # Use to_json -> loads to correctly handle numpy types (int64, float64) and NaN -> null
-    ranked_cols = ['title', 'journal', 'year', 'times_cited', 'pr', 'cell_size', 'document_types']
-    ranked_df = out_df[ranked_cols].copy()
+    ranked_cols = [
+        'title', 'journal', 'year', 'times_cited', 'pr', 'cell_size', 
+        'document_types', 'weight', 'pr_weighted', 'author_rank', 'num_authors'
+    ]
+    cols_to_use = [c for c in ranked_cols if c in out_df.columns]
+    ranked_df = out_df[cols_to_use].copy()
     ranked_papers = json.loads(ranked_df.to_json(orient='records'))
         
-    return jsonify({'pindex': pindex_score, 'total_docs': total_docs, 'ranked_papers': ranked_papers})
+    return jsonify({
+        'pindex': pindex_score, 
+        'pindex_weighted': pindex_weighted,
+        'total_docs': total_docs, 
+        'ranked_papers': ranked_papers
+    })

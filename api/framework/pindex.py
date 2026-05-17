@@ -3,7 +3,17 @@ import pandas as pd
 import concurrent.futures
 
 from framework.api import wos_search, get_records
-from framework.utils import parse_record, percentile_rank
+from framework.utils import parse_record, percentile_rank, is_target_author
+
+def get_author_rank_and_count(authors_str, first_name, last_name):
+    if not authors_str or not isinstance(authors_str, str):
+        return 1, 1
+    authors = [a.strip() for a in authors_str.split(";")]
+    num_authors = len(authors)
+    for idx, auth in enumerate(authors):
+        if is_target_author(auth, first_name, last_name):
+            return idx + 1, num_authors
+    return 1, num_authors
 
 # =====================================================================
 # ORIGINAL SLOW METHOD (Active)
@@ -44,7 +54,7 @@ def get_journal_year_cell(journal, year, max_pages=50, limit=50):
     df = df.drop_duplicates(subset=["title", "year"], keep="first")
     return df.reset_index(drop=True)
 
-def compute_pindex(papers_df):
+def compute_pindex(papers_df, first_name=None, last_name=None):
     pairs = papers_df[["journal", "year"]].dropna().drop_duplicates()
     # Filter out empty strings that were used to replace NaNs
     pairs = pairs[(pairs["journal"].astype(str).str.strip() != "") & (pairs["year"].astype(str).str.strip() != "")]
@@ -62,6 +72,10 @@ def compute_pindex(papers_df):
 
     prs = []
     cell_sizes = []
+    weights = []
+    weighted_prs = []
+    author_ranks = []
+    num_authors_list = []
 
     for _, row in papers_df.iterrows():
         # Normalize key to match how it was stored in cell_cache
@@ -80,16 +94,36 @@ def compute_pindex(papers_df):
         prs.append(pr)
         cell_sizes.append(cell_size)
 
+        # Calculate weight if first_name and last_name are provided
+        if first_name and last_name and pr is not None:
+            rank, num_authors = get_author_rank_and_count(row.get("authors", ""), first_name, last_name)
+            weight = 2.0 * (num_authors - rank + 1) / (num_authors * (num_authors + 1))
+            weighted_pr = pr * weight
+            weights.append(weight)
+            weighted_prs.append(weighted_pr)
+            author_ranks.append(rank)
+            num_authors_list.append(num_authors)
+        else:
+            weights.append(None)
+            weighted_prs.append(None)
+            author_ranks.append(None)
+            num_authors_list.append(None)
+
     out = papers_df.copy()
     out["pr"] = prs
     out["cell_size"] = cell_sizes
+    out["weight"] = weights
+    out["pr_weighted"] = weighted_prs
+    out["author_rank"] = author_ranks
+    out["num_authors"] = num_authors_list
 
     pindex = out["pr"].dropna().mean()
+    pindex_weighted = out["pr_weighted"].dropna().mean() if first_name and last_name else None
     
     # Calculate total documents retrieved from the WOS API for this run
     total_docs = sum(len(df) for df in cell_cache.values())
     
-    return out, pindex, total_docs
+    return out, pindex, pindex_weighted, total_docs
 
 
 # =====================================================================
