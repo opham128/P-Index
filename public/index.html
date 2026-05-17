@@ -241,15 +241,18 @@
                 <div id="result_container" class="hidden flex flex-col items-center gap-8">
                     <!-- Standard p-Index Display -->
                     <div class="inline-block relative">
-                        <h2 class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
+                        <h2
+                            class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
                             <span><span id="result_name">Researcher</span>'s <i>p</i>-Index is</span>
                             <span id="result_value" class="text-secondary">-</span>
                         </h2>
                     </div>
                     <!-- Author-Weighted p-Index Display -->
                     <div class="inline-block relative border-t border-slate-200 pt-6 w-full max-w-[400px]">
-                        <h2 class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
-                            <span class="text-h2 font-h2"><span id="result_name_weighted">Researcher</span>'s Author-Weighted <i>p</i>-Index is</span>
+                        <h2
+                            class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
+                            <span class="text-h2 font-h2"><span id="result_name_weighted">Researcher</span>'s
+                                Author-Weighted <i>p</i>-Index is</span>
                             <span id="result_value_weighted" class="text-secondary">-</span>
                         </h2>
                     </div>
@@ -287,7 +290,8 @@
                             </th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32"
                                 data-sort="cell_size" data-table="ranked">
-                                Cell Size <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                # Papers Same Journal/Year <span
+                                    class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
                                 data-sort="pr" data-table="ranked">
@@ -526,7 +530,7 @@
                 const res = await fetch('/api/calculate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         papers: activePapers,
                         first_name: firstName,
                         last_name: lastName
