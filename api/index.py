@@ -34,7 +34,12 @@ def search():
     if not first_name or not last_name:
         return jsonify({'error': 'First and last name required'}), 400
         
-    df, counter = find_researcher_ids(first_name, last_name, org=org or None)
+    try:
+        df, counter = find_researcher_ids(first_name, last_name, org=org or None)
+    except Exception as e:
+        if "WOS_RATE_LIMIT" in str(e):
+            return jsonify({'error': 'web_of_science_rate_limit'}), 429
+        return jsonify({'error': str(e)}), 500
     
     if df.empty:
         return jsonify({'researchers': []})
@@ -70,7 +75,12 @@ def papers():
     if not researcher_id:
         return jsonify({'error': 'researcher_id required'}), 400
         
-    df = get_papers_by_researcher_id(researcher_id)
+    try:
+        df = get_papers_by_researcher_id(researcher_id)
+    except Exception as e:
+        if "WOS_RATE_LIMIT" in str(e):
+            return jsonify({'error': 'web_of_science_rate_limit'}), 429
+        return jsonify({'error': str(e)}), 500
     
     if df.empty:
         return jsonify({'papers': []})
@@ -93,7 +103,12 @@ def calculate():
         
     df = pd.DataFrame(papers_list)
     
-    out_df, pindex_score, pindex_weighted, total_docs = compute_pindex(df, first_name, last_name)
+    try:
+        out_df, pindex_score, pindex_weighted, total_docs = compute_pindex(df, first_name, last_name)
+    except Exception as e:
+        if "WOS_RATE_LIMIT" in str(e):
+            return jsonify({'error': 'web_of_science_rate_limit'}), 429
+        return jsonify({'error': str(e)}), 500
     
     # Handle NaN in pindex_score
     if pd.isna(pindex_score):

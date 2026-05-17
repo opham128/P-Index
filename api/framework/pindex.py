@@ -42,6 +42,8 @@ def get_journal_year_cell(journal, year, max_pages=50, limit=50):
                 break
         except Exception as e:
             print(f"Error on page {page} for {journal} {year}: {e}")
+            if "WOS_RATE_LIMIT" in str(e):
+                raise e
             break
 
         time.sleep(0.25)
@@ -68,6 +70,8 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
             cell_cache[key] = get_journal_year_cell(journal, int(year_raw))
         except Exception as e:
             print(f"Error fetching cell for {journal} {year_raw}: {e}")
+            if "WOS_RATE_LIMIT" in str(e):
+                raise e
             cell_cache[key] = pd.DataFrame()
 
     prs = []
