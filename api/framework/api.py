@@ -14,6 +14,8 @@ HEADERS = {
 def wos_search(query, page=1, limit=50):
     params = {"q": query, "page": page, "limit": limit}
     r = requests.get(DOCS_URL, headers=HEADERS, params=params, timeout=30)
+    if r.status_code == 429:
+        raise Exception("WOS_RATE_LIMIT")
     r.raise_for_status()
     return r.json()
 

@@ -222,17 +222,25 @@
             </div>
         </section>
         <!-- Calculate Button -->
-        <div class="pt-stack-md max-w-[800px] mx-auto">
+        <div class="pt-stack-md max-w-[800px] mx-auto space-y-4">
             <button id="calculate_btn"
                 class="w-full bg-primary text-on-primary font-h2 py-6 rounded-xl hover:shadow-[0_8px_30px_rgba(9,20,38,0.2)] transition-all hover:-translate-y-1 active:translate-y-0 active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0 disabled:active:scale-100">
                 <span class="material-symbols-outlined" data-icon="calculate"
                     style="font-variation-settings: 'FILL' 1;">calculate</span>
                 Calculate Researcher's p-Index
             </button>
-            <p class="text-center text-body-sm text-slate-500 mt-4 italic">
+            <p class="text-center text-body-sm text-slate-500 italic">
                 Disclaimer: The deep citation calculation fetches thousands of baseline reference records and may take
                 several minutes to complete.
             </p>
+            <div id="error_banner"
+                class="hidden p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 rounded-xl text-red-700 dark:text-red-300 text-sm flex items-center gap-3 text-left">
+                <span class="material-symbols-outlined text-red-500">warning</span>
+                <div>
+                    <strong>API Limit Reached:</strong> There is currently an API limit rate constraint from Web of
+                    Science. Limit resets daily.
+                </div>
+            </div>
         </div>
         <!-- Results Area -->
         <section class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full text-center">
@@ -343,6 +351,8 @@
             desc.classList.add('hidden');
             document.getElementById('ranked_section').classList.add('hidden');
             document.getElementById('ranked_list').innerHTML = '';
+            const errBanner = document.getElementById('error_banner');
+            if (errBanner) errBanner.classList.add('hidden');
             currentRankedPapers = [];
         }
 
@@ -366,26 +376,38 @@
             clearResults();
             currentPapers = [];
 
-            try {
-                const res = await fetch('/api/search', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
-                });
-                const data = await res.json();
+            const res = await fetch('/api/search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
+            });
 
-                if (data.researchers && data.researchers.length > 0) {
-                    renderResearchers(data.researchers);
+            if (res.status === 429) {
+                const errBanner = document.getElementById('error_banner');
+                if (errBanner) {
+                    errBanner.classList.remove('hidden');
+                    errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
-                    document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
+                    alert("Web of Science API rate limit exceeded. Please wait a moment and try again.");
                 }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('researchers_list').innerHTML = '<p class="text-error">Error fetching researchers.</p>';
-            } finally {
-                searchBtn.textContent = 'Search Academic Records';
-                searchBtn.disabled = false;
+                document.getElementById('researchers_list').innerHTML = '';
+                return;
             }
+
+            const data = await res.json();
+
+            if (data.researchers && data.researchers.length > 0) {
+                renderResearchers(data.researchers);
+            } else {
+                document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
+            }
+        } catch (err) {
+            console.error(err);
+            document.getElementById('researchers_list').innerHTML = '<p class="text-error">Error fetching researchers.</p>';
+        } finally {
+            searchBtn.textContent = 'Search Academic Records';
+            searchBtn.disabled = false;
+        }
         });
 
         function renderResearchers(researchers) {
@@ -450,6 +472,19 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ researcher_id: researcherId })
                 });
+
+                if (res.status === 429) {
+                    const errBanner = document.getElementById('error_banner');
+                    if (errBanner) {
+                        errBanner.classList.remove('hidden');
+                        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        alert("Web of Science API rate limit exceeded. Please wait a moment and try again.");
+                    }
+                    list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-error">API Limit: Web of Science rate limit exceeded.</td></tr>';
+                    return;
+                }
+
                 const data = await res.json();
 
                 if (data.papers) {
@@ -536,6 +571,18 @@
                         last_name: lastName
                     })
                 });
+
+                if (res.status === 429) {
+                    const errBanner = document.getElementById('error_banner');
+                    if (errBanner) {
+                        errBanner.classList.remove('hidden');
+                        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        alert("Web of Science API rate limit exceeded. Please wait a moment and try again.");
+                    }
+                    return;
+                }
+
                 const data = await res.json();
 
                 if (data.pindex !== undefined && data.pindex !== null) {
