@@ -123,7 +123,7 @@
         <div class="flex justify-between items-center h-16 w-full max-w-[1280px] mx-auto px-8">
             <div
                 class="text-xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tighter font-['Manrope'] antialiased tracking-tight">
-                Scholar p-Index
+                Scholar p-Index Calculator
             </div>
             <div class="flex items-center gap-6">
                 <a href="/p-index-paper.pdf" target="_blank"
@@ -198,13 +198,16 @@
                                 data-sort="year" data-table="papers">
                                 Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-24 whitespace-nowrap">Type</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                data-sort="document_types" data-table="papers">
+                                Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32 whitespace-nowrap"
                                 data-sort="times_cited" data-table="papers">
                                 Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
                             <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
-                                <span class="font-label-caps block">Action</span>
+                                <span class="font-label-caps block">Select/Unselect</span>
                             </th>
                         </tr>
                     </thead>
@@ -233,15 +236,22 @@
         </div>
         <!-- Results Area -->
         <section class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full text-center">
-            <div class="text-center space-y-4">
+            <div class="text-center space-y-6">
                 <p class="font-label-caps text-on-primary-container">Calculation Result</p>
-                <div class="inline-block relative">
-                    <h2 id="result_container" class="font-display text-display text-primary leading-none hidden flex flex-col items-center gap-6">
-                        <span><span id="result_name">Researcher</span>'s <i>p</i>-Index is</span>
-                        <span id="result_value" class="text-secondary">-</span>
-                    </h2>
-                    <div
-                        class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full opacity-20">
+                <div id="result_container" class="hidden flex flex-col items-center gap-8">
+                    <!-- Standard p-Index Display -->
+                    <div class="inline-block relative">
+                        <h2 class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
+                            <span><span id="result_name">Researcher</span>'s <i>p</i>-Index is</span>
+                            <span id="result_value" class="text-secondary">-</span>
+                        </h2>
+                    </div>
+                    <!-- Author-Weighted p-Index Display -->
+                    <div class="inline-block relative border-t border-slate-200 pt-6 w-full max-w-[400px]">
+                        <h2 class="font-display text-display text-primary leading-none flex flex-col items-center gap-4">
+                            <span class="text-h2 font-h2"><span id="result_name_weighted">Researcher</span>'s Author-Weighted <i>p</i>-Index is</span>
+                            <span id="result_value_weighted" class="text-secondary">-</span>
+                        </h2>
                     </div>
                 </div>
                 <p id="result_description" class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4 hidden">
@@ -267,18 +277,29 @@
                                 data-sort="year" data-table="ranked">
                                 Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-24 whitespace-nowrap">Type</th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                data-sort="document_types" data-table="ranked">
+                                Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
                                 data-sort="times_cited" data-table="ranked">
                                 Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32"
                                 data-sort="cell_size" data-table="ranked">
-                                # Articles Same Journal Same Year <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                Cell Size <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
                                 data-sort="pr" data-table="ranked">
-                                Article Percentile Rank <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                Percentile <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
+                                data-sort="weight" data-table="ranked">
+                                Author Weight <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
+                                data-sort="pr_weighted" data-table="ranked">
+                                Weighted PR <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
                         </tr>
                     </thead>
@@ -308,6 +329,19 @@
         let currentResearcherName = '';
         let sortConfig = { key: null, direction: 'asc', table: null };
 
+        function clearResults() {
+            document.getElementById('result_container').classList.add('hidden');
+            document.getElementById('result_value').textContent = '-';
+            const valWeighted = document.getElementById('result_value_weighted');
+            if (valWeighted) valWeighted.textContent = '-';
+            const desc = document.getElementById('result_description');
+            desc.innerHTML = '';
+            desc.classList.add('hidden');
+            document.getElementById('ranked_section').classList.add('hidden');
+            document.getElementById('ranked_list').innerHTML = '';
+            currentRankedPapers = [];
+        }
+
         document.getElementById('search_btn').addEventListener('click', async () => {
             const firstName = document.getElementById('first_name').value.trim();
             const lastName = document.getElementById('last_name').value.trim();
@@ -325,7 +359,7 @@
             document.getElementById('researchers_list').innerHTML = '<p class="text-on-surface-variant">Loading researchers...</p>';
             document.getElementById('papers_list').innerHTML = '';
             document.getElementById('papers_count').textContent = '0 Papers Found';
-            document.getElementById('result_container').classList.add('hidden');
+            clearResults();
             currentPapers = [];
 
             try {
@@ -396,6 +430,7 @@
                     e.target.textContent = 'Active Selection';
                     e.target.className = 'bg-secondary text-white px-3 py-1.5 rounded-full text-label-caps select-profile-btn cursor-default';
 
+                    clearResults();
                     fetchPapers(rid);
                 });
             });
@@ -482,25 +517,35 @@
             calcBtn.disabled = true;
 
             // Clear previous result while calculating
+            clearResults();
             const desc = document.getElementById('result_description');
-            desc.innerHTML = '';
-            desc.classList.add('hidden');
-            document.getElementById('result_container').classList.add('hidden');
 
             try {
+                const firstName = document.getElementById('first_name').value.trim();
+                const lastName = document.getElementById('last_name').value.trim();
                 const res = await fetch('/api/calculate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ papers: activePapers })
+                    body: JSON.stringify({ 
+                        papers: activePapers,
+                        first_name: firstName,
+                        last_name: lastName
+                    })
                 });
                 const data = await res.json();
 
                 if (data.pindex !== undefined && data.pindex !== null) {
                     document.getElementById('result_container').classList.remove('hidden');
-                    // Set researcher name in heading
+                    // Set researcher name in headings
                     document.getElementById('result_name').textContent = currentResearcherName || 'Researcher';
+                    document.getElementById('result_name_weighted').textContent = currentResearcherName || 'Researcher';
                     // Format to 2 decimal places
                     document.getElementById('result_value').textContent = parseFloat(data.pindex).toFixed(2);
+                    if (data.pindex_weighted !== undefined && data.pindex_weighted !== null) {
+                        document.getElementById('result_value_weighted').textContent = parseFloat(data.pindex_weighted).toFixed(2);
+                    } else {
+                        document.getElementById('result_value_weighted').textContent = '—';
+                    }
 
                     const uniqueJournals = new Set(activePapers.map(p => p.journal).filter(j => j && j.trim() !== '')).size;
                     const asOf = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -534,6 +579,15 @@
                 const percentileDisplay = p.pr !== null && p.pr !== undefined
                     ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
                     : '<span class="text-slate-400 italic">N/A</span>';
+
+                const weightDisplay = p.weight !== null && p.weight !== undefined
+                    ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span> <span class="text-xs text-slate-400 font-mono">(w=${p.weight.toFixed(2)})</span>`
+                    : '<span class="text-slate-400 italic">—</span>';
+
+                const prWeightedDisplay = p.pr_weighted !== null && p.pr_weighted !== undefined
+                    ? `<span class="font-semibold ${p.pr_weighted >= 0.75 ? 'text-green-600' : p.pr_weighted >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr_weighted * 100).toFixed(1)}%</span>`
+                    : '<span class="text-slate-400 italic">—</span>';
+
                 const row = document.createElement('tr');
                 row.className = 'hover:bg-slate-50 transition-colors';
                 row.innerHTML = `
@@ -548,6 +602,8 @@
                     <td class="px-gutter py-3 text-right font-mono text-slate-700">${p.times_cited ?? '—'}</td>
                     <td class="px-gutter py-3 text-right font-mono text-slate-400">${p.cell_size ?? '—'}</td>
                     <td class="px-gutter py-3 text-right">${percentileDisplay}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-sm">${weightDisplay}</td>
+                    <td class="px-gutter py-3 text-right">${prWeightedDisplay}</td>
                 `;
                 rankedList.appendChild(row);
             });
