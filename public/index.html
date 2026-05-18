@@ -391,31 +391,32 @@
             clearResults();
             currentPapers = [];
 
-            const res = await fetch('/api/search', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
-            });
+            try {
+                const res = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
+                });
 
-            if (res.status === 429) {
-                const errBanner = document.getElementById('error_banner');
-                if (errBanner) {
-                    errBanner.classList.remove('hidden');
-                    errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    alert("Web of Science API rate limit exceeded. Please wait a moment and try again.");
+                if (res.status === 429) {
+                    const errBanner = document.getElementById('error_banner');
+                    if (errBanner) {
+                        errBanner.classList.remove('hidden');
+                        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        alert("Web of Science API rate limit exceeded. Please wait a moment and try again.");
+                    }
+                    document.getElementById('researchers_list').innerHTML = '';
+                    return;
                 }
-                document.getElementById('researchers_list').innerHTML = '';
-                return;
-            }
 
-            const data = await res.json();
+                const data = await res.json();
 
-            if (data.researchers && data.researchers.length > 0) {
-                renderResearchers(data.researchers);
-            } else {
-                document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
-            }
+                if (data.researchers && data.researchers.length > 0) {
+                    renderResearchers(data.researchers);
+                } else {
+                    document.getElementById('researchers_list').innerHTML = '<p class="text-error">No researchers found.</p>';
+                }
         } catch (err) {
             console.error(err);
             document.getElementById('researchers_list').innerHTML = '<p class="text-error">Error fetching researchers.</p>';
