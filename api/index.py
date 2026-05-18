@@ -10,6 +10,10 @@ sys.path.append(os.path.dirname(__file__))
 
 from framework.researcher import find_researcher_ids, get_papers_by_researcher_id
 from framework.pindex import compute_pindex
+from framework.db import init_db, log_calculation
+
+# Initialize Database Schema
+init_db()
 
 # Configure Flask to serve static files from the public folder
 app = Flask(__name__, static_folder='../public', static_url_path='/')
@@ -116,6 +120,24 @@ def calculate():
     if pd.isna(pindex_weighted):
         pindex_weighted = None
  
+    # Log usage privately in the database
+    try:
+        ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
+        if ip_address and ',' in ip_address:
+            ip_address = ip_address.split(',')[0].strip()
+        user_agent = request.headers.get('User-Agent', '')
+        researcher_name = f"{first_name} {last_name}".strip() if (first_name or last_name) else "Unknown"
+        
+        log_calculation(
+            ip_address=ip_address,
+            user_agent=user_agent,
+            researcher_name=researcher_name,
+            papers_count=len(papers_list),
+            pindex=pindex_score,
+            pindex_weighted=pindex_weighted
+        )
+    except Exception as db_err:
+        print(f"Failed to trigger db usage logging: {db_err}")
     # Serialize per-paper ranked results
     # Use to_json -> loads to correctly handle numpy types (int64, float64) and NaN -> null
     ranked_cols = [

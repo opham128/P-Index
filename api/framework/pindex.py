@@ -76,8 +76,7 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
 
     prs = []
     cell_sizes = []
-    weights = []
-    weighted_prs = []
+    raw_weights = []
     author_ranks = []
     num_authors_list = []
 
@@ -98,25 +97,46 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
         prs.append(pr)
         cell_sizes.append(cell_size)
 
-        # Calculate weight if first_name and last_name are provided
+        # Calculate raw weight if first_name and last_name are provided
         if first_name and last_name and pr is not None:
             rank, num_authors = get_author_rank_and_count(row.get("authors", ""), first_name, last_name)
-            weight = 2.0 * (num_authors - rank + 1) / (num_authors * (num_authors + 1))
-            weighted_pr = pr * weight
-            weights.append(weight)
-            weighted_prs.append(weighted_pr)
-            author_ranks.append(rank)
-            num_authors_list.append(num_authors)
+            if rank is not None and num_authors is not None:
+                weight = 2.0 * (num_authors - rank + 1) / (num_authors * (num_authors + 1))
+                raw_weights.append(weight)
+                author_ranks.append(rank)
+                num_authors_list.append(num_authors)
+            else:
+                raw_weights.append(None)
+                author_ranks.append(None)
+                num_authors_list.append(None)
         else:
-            weights.append(None)
-            weighted_prs.append(None)
+            raw_weights.append(None)
             author_ranks.append(None)
             num_authors_list.append(None)
+
+    # Normalize raw weights so that their sum equals the number of papers (their average is 1.0)
+    valid_weights = [w for w in raw_weights if w is not None]
+    if valid_weights and len(valid_weights) > 0:
+        sum_weights = sum(valid_weights)
+        avg_weight = sum_weights / len(valid_weights)
+        if avg_weight == 0:
+            avg_weight = 1.0
+        normalized_weights = [w / avg_weight if w is not None else None for w in raw_weights]
+    else:
+        normalized_weights = [None] * len(raw_weights)
+
+    # Compute final weighted percentile ranks
+    weighted_prs = []
+    for pr, w in zip(prs, normalized_weights):
+        if pr is not None and w is not None:
+            weighted_prs.append(pr * w)
+        else:
+            weighted_prs.append(None)
 
     out = papers_df.copy()
     out["pr"] = prs
     out["cell_size"] = cell_sizes
-    out["weight"] = weights
+    out["weight"] = normalized_weights
     out["pr_weighted"] = weighted_prs
     out["author_rank"] = author_ranks
     out["num_authors"] = num_authors_list
