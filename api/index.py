@@ -139,6 +139,8 @@ def calculate():
         user_agent = request.headers.get('User-Agent', '')
         researcher_name = f"{first_name} {last_name}".strip() if (first_name or last_name) else "Unknown"
         anonymous_user_id = data.get('anonymous_user_id') or request.headers.get('X-Anonymous-User-ID', '')
+        total_papers_count = data.get('total_papers_count')
+        total_citations = data.get('total_citations')
         
         log_calculation(
             ip_address=ip_address,
@@ -147,7 +149,9 @@ def calculate():
             papers_count=len(papers_list),
             pindex=pindex_score,
             pindex_weighted=pindex_weighted,
-            anonymous_user_id=anonymous_user_id
+            anonymous_user_id=anonymous_user_id,
+            total_papers_count=total_papers_count,
+            total_citations=total_citations
         )
     except Exception as db_err:
         print(f"Failed to trigger db usage logging: {db_err}")
