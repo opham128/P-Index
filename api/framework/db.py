@@ -2,7 +2,8 @@ import os
 import sqlite3
 
 def get_db_connection():
-    postgres_url = os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
+    # Support Neon connection strings as well as Vercel standard ones
+    postgres_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
     if postgres_url:
         try:
             import psycopg2
@@ -19,7 +20,7 @@ def init_db():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        postgres_url = os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
+        postgres_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
         if postgres_url:
             # PostgreSQL schema
             cursor.execute("""
@@ -31,9 +32,15 @@ def init_db():
                     researcher_name VARCHAR(255),
                     papers_count INTEGER,
                     pindex DOUBLE PRECISION,
-                    pindex_weighted DOUBLE PRECISION
+                    pindex_weighted DOUBLE PRECISION,
+                    anonymous_user_id VARCHAR(255)
                 );
             """)
+            # Apply PostgreSQL Migration to existing tables (if any)
+            try:
+                cursor.execute("ALTER TABLE calculation_logs ADD COLUMN anonymous_user_id VARCHAR(255);")
+            except Exception:
+                pass
         else:
             # SQLite schema
             cursor.execute("""
@@ -45,15 +52,22 @@ def init_db():
                     researcher_name TEXT,
                     papers_count INTEGER,
                     pindex REAL,
-                    pindex_weighted REAL
+                    pindex_weighted REAL,
+                    anonymous_user_id TEXT
                 );
             """)
+            # Apply SQLite Migration to existing tables (if any)
+            try:
+                cursor.execute("ALTER TABLE calculation_logs ADD COLUMN anonymous_user_id TEXT;")
+            except Exception:
+                pass
+                
         conn.commit()
         conn.close()
     except Exception as e:
         print(f"Database initialization failed: {e}")
 
-def log_calculation(ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted):
+def log_calculation(ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -65,22 +79,22 @@ def log_calculation(ip_address, user_agent, researcher_name, papers_count, pinde
         if pindex_weighted is not None and (math.isnan(pindex_weighted) or math.isinf(pindex_weighted)):
             pindex_weighted = None
             
-        postgres_url = os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
+        postgres_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
         
         if postgres_url:
             query = """
                 INSERT INTO calculation_logs 
-                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted)
-                VALUES (%s, %s, %s, %s, %s, %s)
+                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted))
+            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id))
         else:
             query = """
                 INSERT INTO calculation_logs 
-                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted)
-                VALUES (?, ?, ?, ?, ?, ?)
+                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             """
-            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted))
+            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id))
             
         conn.commit()
         conn.close()

@@ -127,6 +127,7 @@ def calculate():
             ip_address = ip_address.split(',')[0].strip()
         user_agent = request.headers.get('User-Agent', '')
         researcher_name = f"{first_name} {last_name}".strip() if (first_name or last_name) else "Unknown"
+        anonymous_user_id = data.get('anonymous_user_id') or request.headers.get('X-Anonymous-User-ID', '')
         
         log_calculation(
             ip_address=ip_address,
@@ -134,7 +135,8 @@ def calculate():
             researcher_name=researcher_name,
             papers_count=len(papers_list),
             pindex=pindex_score,
-            pindex_weighted=pindex_weighted
+            pindex_weighted=pindex_weighted,
+            anonymous_user_id=anonymous_user_id
         )
     except Exception as db_err:
         print(f"Failed to trigger db usage logging: {db_err}")
@@ -154,3 +156,40 @@ def calculate():
         'total_docs': total_docs, 
         'ranked_papers': ranked_papers
     })
+
+@app.route('/api/admin/logs', methods=['GET'])
+def admin_logs():
+    # Simple query parameter key authorization
+    provided_key = request.args.get('key')
+    secret_key = os.environ.get("ADMIN_SECRET_KEY", "admin_secret")
+    
+    if not provided_key or provided_key != secret_key:
+        return jsonify({'error': 'Unauthorized'}), 401
+        
+    try:
+        from framework.db import get_db_connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT id, timestamp, ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id FROM calculation_logs ORDER BY timestamp DESC;")
+        rows = cursor.fetchall()
+        
+        logs = []
+        for r in rows:
+            logs.append({
+                'id': r[0],
+                'timestamp': str(r[1]),
+                'ip_address': r[2],
+                'user_agent': r[3],
+                'researcher_name': r[4],
+                'papers_count': r[5],
+                'pindex': r[6],
+                'pindex_weighted': r[7],
+                'anonymous_user_id': r[8] if len(r) > 8 else ''
+            })
+            
+        conn.close()
+        return jsonify({'logs': logs})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
