@@ -398,7 +398,7 @@
                                 class="bg-primary/5 hover:bg-primary/10 transition-all rounded-2xl p-5 border border-primary/10 flex items-center justify-between group">
                                 <div class="space-y-1 text-left">
                                     <p class="text-xs font-bold text-primary uppercase tracking-wider"><i>p</i>-Index
-                                        (PI)</p>
+                                    </p>
                                     <p class="text-[11px] text-slate-500 max-w-[180px]">Average citation percentile rank
                                         across selected articles.</p>
                                 </div>
@@ -413,7 +413,7 @@
                                 class="bg-secondary/5 hover:bg-secondary/10 transition-all rounded-2xl p-5 border border-secondary/10 flex items-center justify-between group">
                                 <div class="space-y-1 text-left">
                                     <p class="text-xs font-bold text-secondary uppercase tracking-wider">
-                                        Authorship-Weighted <i>p</i>-Index (OWPI)</p>
+                                        Authorship-Weighted <i>p</i>-Index</p>
                                     <p class="text-[11px] text-slate-500 max-w-[180px]">Percentile rank adjusted for
                                         co-authorship weight contribution.</p>
                                 </div>
@@ -723,10 +723,10 @@
 
                 tr.innerHTML = `
                     <td class="px-gutter py-4 w-[35%]">
-                        <p class="font-body-md font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
+                        <p class="text-sm font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
                     </td>
                     <td class="px-gutter py-4 w-[25%]">
-                        <p class="text-body-md text-on-surface-variant italic ${p.excluded ? 'line-through' : ''}">${p.journal}</p>
+                        <p class="text-xs text-on-surface-variant italic ${p.excluded ? 'line-through' : ''}">${p.journal}</p>
                     </td>
                     <td class="px-gutter py-4 font-mono text-slate-500">${p.year || '—'}</td>
                     <td class="px-gutter py-4 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
@@ -877,10 +877,10 @@
                 row.className = 'hover:bg-slate-50 transition-colors';
                 row.innerHTML = `
                     <td class="px-gutter py-3 w-[28%]">
-                        <p class="font-body-md font-semibold text-primary">${p.title || '—'}</p>
+                        <p class="text-sm font-semibold text-primary">${p.title || '—'}</p>
                     </td>
                     <td class="px-gutter py-3 w-[22%]">
-                        <p class="text-body-md text-on-surface-variant italic">${p.journal || '—'}</p>
+                        <p class="text-xs text-on-surface-variant italic">${p.journal || '—'}</p>
                     </td>
                     <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
                     <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">
