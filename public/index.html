@@ -356,6 +356,22 @@
         let currentResearcherName = '';
         let sortConfig = { key: null, direction: 'asc', table: null };
 
+        function getOrCreateAnonymousUserId() {
+            let userId = localStorage.getItem('anonymous_user_id');
+            if (!userId) {
+                try {
+                    userId = crypto.randomUUID();
+                } catch (e) {
+                    userId = 'anon-' + Math.random().toString(36).substring(2, 15) + '-' + Date.now().toString(36);
+                }
+                localStorage.setItem('anonymous_user_id', userId);
+            }
+            return userId;
+        }
+
+        // Initialize ID on page load
+        getOrCreateAnonymousUserId();
+
         function clearResults() {
             document.getElementById('result_container').classList.add('hidden');
             document.getElementById('result_value').textContent = '-';
@@ -584,7 +600,8 @@
                     body: JSON.stringify({
                         papers: activePapers,
                         first_name: firstName,
-                        last_name: lastName
+                        last_name: lastName,
+                        anonymous_user_id: getOrCreateAnonymousUserId()
                     })
                 });
 
