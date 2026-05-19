@@ -141,6 +141,65 @@
         </div>
     </header>
     <main class="flex-grow w-full max-w-[1200px] mx-auto px-8 py-margin-page space-y-stack-lg">
+        <!-- Welcome & Description Block -->
+        <section class="max-w-[800px] mx-auto bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-primary tracking-tight">Welcome to the <i>p</i>-Index calculator.</h2>
+                
+                <p class="text-on-primary-container leading-relaxed text-slate-700">
+                    The <i>p</i>-Index is a scientometric indicator of a scholar’s propensity for thought 
+                    leadership, first proposed and tested by Pham, Wu, and Wang (2024). The index is 
+                    the average citation percentile rank of a researcher’s published articles relative to other 
+                    articles published the same year by the same journals. It reflects the tendency of a 
+                    researcher’s articles to relatively outperform, in terms of citations, other articles 
+                    published in the same journals as those where this researcher published his or her 
+                    work, controlling for year of publication and thereby for the effects of seniority.
+                </p>
+                
+                <p class="text-on-primary-container leading-relaxed text-slate-700">
+                    The measure is (a) simple and easy to compute, (b) objective and transparent, (c) not 
+                    easy to “game,” (d) not overly dependent on a single publication, and (e) suitable for 
+                    comparisons of scholars of different seniority. Prior tests have shown the index to be (f) 
+                    internally consistent and (g) predictive of scholarly recognition and reputation when 
+                    used in combination with the scholar’s number of top publications.
+                </p>
+                
+                <div class="bg-slate-50 border-l-4 border-slate-300 p-4 rounded-r-lg text-xs text-slate-500 italic leading-relaxed">
+                    <strong>Reference:</strong> Pham, Michel Tuan, Alisa Yinghao Wu, and Danqi Wang (2024), “Benchmarking 
+                    Scholarship in Consumer Research: The <i>p</i>-Index of Thought Leadership,” <em>Journal of Consumer 
+                    Research</em>, Vol. 51 (1), 191-203.
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-100 pt-6 space-y-4">
+                <h3 class="text-lg font-semibold text-primary tracking-tight">How to use the <i>p</i>-Index calculator.</h3>
+                <p class="text-sm text-slate-600">
+                    This automated <i>p</i>-Index calculator is based on up-to-date records from the Web of 
+                    Science (WoS) database. To use it, proceed as follows:
+                </p>
+                <ol class="list-decimal pl-5 text-sm text-slate-600 space-y-3">
+                    <li>
+                        <strong>Search</strong> for the researcher’s publication record on WoS. You may need to add the 
+                        researcher’s middle name or initials to identify the relevant record. To do so, use 
+                        the following format: First Name: <code class="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs">"Thomas R. L."</code> ; Last Name: <code class="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs">"Jackson"</code>. A list of 
+                        matching researcher records will be retrieved.
+                    </li>
+                    <li>
+                        <strong>Select</strong> the researcher profile of interest. The researcher’s list of publications (as 
+                        recorded by WoS) will then be displayed.
+                    </li>
+                    <li>
+                        <strong>From</strong> the displayed list of publications, unselect the ones that are not relevant for 
+                        your analysis (e.g., duplicated records, correction notices, editorial notes).
+                    </li>
+                    <li>
+                        <strong>Hit “Calculate.”</strong> Depending on the researcher’s number of publications and the 
+                        journals involved, the computations may take 2 – 3 minutes.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
         <!-- Search Section -->
         <section class="space-y-stack-md max-w-[800px] mx-auto">
             <div class="space-y-2 text-center">
@@ -316,10 +375,6 @@
                             <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-48 whitespace-nowrap"
                                 data-sort="weight" data-table="ranked">
                                 Author Weight <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
-                                data-sort="pr_weighted" data-table="ranked">
-                                Weighted PR <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
                         </tr>
                     </thead>
@@ -687,7 +742,6 @@
                     <td class="px-gutter py-3 text-center font-mono text-slate-400">${p.cell_size ?? '—'}</td>
                     <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
                     <td class="px-gutter py-3 text-center font-mono text-sm">${weightDisplay}</td>
-                    <td class="px-gutter py-3 text-center">${prWeightedDisplay}</td>
                 `;
                 rankedList.appendChild(row);
             });
