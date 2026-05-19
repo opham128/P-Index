@@ -292,24 +292,24 @@
                                 data-sort="title" data-table="ranked">
                                 Title &amp; Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-20 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-20 whitespace-nowrap"
                                 data-sort="year" data-table="ranked">
                                 Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
                                 data-sort="document_types" data-table="ranked">
                                 Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
                                 data-sort="times_cited" data-table="ranked">
                                 Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-44"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-44"
                                 data-sort="cell_size" data-table="ranked">
                                 # Articles Same Journal Same Year <span
                                     class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
                                 data-sort="pr" data-table="ranked">
                                 Percentile <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
@@ -317,7 +317,7 @@
                                 data-sort="weight" data-table="ranked">
                                 Author Weight <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
                                 data-sort="pr_weighted" data-table="ranked">
                                 Weighted PR <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
@@ -662,15 +662,15 @@
                         <p class="font-body-md font-semibold text-primary">${p.title || '—'}</p>
                         <p class="text-body-sm text-on-surface-variant italic">${p.journal || '—'}</p>
                     </td>
-                    <td class="px-gutter py-3 font-mono text-slate-500">${p.year || '—'}</td>
-                    <td class="px-gutter py-3 text-xs font-label-caps text-slate-500 uppercase tracking-tight">
+                    <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
+                    <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">
                         ${p.document_types || '—'}
                     </td>
-                    <td class="px-gutter py-3 text-right font-mono text-slate-700">${p.times_cited ?? '—'}</td>
-                    <td class="px-gutter py-3 text-right font-mono text-slate-400">${p.cell_size ?? '—'}</td>
-                    <td class="px-gutter py-3 text-right">${percentileDisplay}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-400">${p.cell_size ?? '—'}</td>
+                    <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
                     <td class="px-gutter py-3 text-center font-mono text-sm">${weightDisplay}</td>
-                    <td class="px-gutter py-3 text-right">${prWeightedDisplay}</td>
+                    <td class="px-gutter py-3 text-center">${prWeightedDisplay}</td>
                 `;
                 rankedList.appendChild(row);
             });
