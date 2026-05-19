@@ -170,7 +170,10 @@
                 <div
                     class="bg-slate-50 border-l-4 border-slate-300 p-4 rounded-r-lg text-xs text-slate-500 italic leading-relaxed">
                     <strong>Reference:</strong> Pham, Michel Tuan, Alisa Yinghao Wu, and Danqi Wang (2024),
-                    <a href="https://academic.oup.com/jcr/article/51/1/191/7672992" target="_blank" class="hover:underline text-primary">“Benchmarking Scholarship in Consumer Research: The <i>p</i>-Index of Thought Leadership,”</a> <em>Journal of Consumer Research</em>, Vol. 51 (1), 191-203.
+                    <a href="https://academic.oup.com/jcr/article/51/1/191/7672992" target="_blank"
+                        class="hover:underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold">“Benchmarking
+                        Scholarship in Consumer Research: The <i>p</i>-Index of Thought Leadership,”</a> <em>Journal of
+                        Consumer Research</em>, Vol. 51 (1), 191-203.
                 </div>
             </div>
 
@@ -256,7 +259,7 @@
             </div>
         </section>
         <!-- Publication Dataset Section -->
-        <section class="space-y-stack-sm max-w-[800px] mx-auto">
+        <section class="space-y-stack-sm max-w-[1200px] mx-auto">
             <div class="flex justify-between items-end">
                 <h2 class="font-h2 text-h2 text-primary">Publication Dataset</h2>
                 <span id="papers_count" class="text-body-sm text-on-primary-container">0 Papers Found</span>
@@ -266,11 +269,11 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200">
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-1/2"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[35%]"
                                 data-sort="title" data-table="papers">
                                 Title <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-1/3"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[25%]"
                                 data-sort="journal" data-table="papers">
                                 Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
@@ -323,21 +326,29 @@
             </div>
         </div>
         <!-- Results Area -->
-        <section id="results_area" class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full">
+        <section id="results_area"
+            class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full">
             <div id="result_container" class="hidden">
                 <!-- Premium Impact Report Card -->
-                <div class="bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl p-8 shadow-[0_10px_40px_rgba(15,23,42,0.08)] relative overflow-hidden transition-all hover:shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
+                <div
+                    class="bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-3xl p-8 shadow-[0_10px_40px_rgba(15,23,42,0.08)] relative overflow-hidden transition-all hover:shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
                     <!-- Subtle Decorative Background Elements -->
-                    <div class="absolute -right-16 -top-16 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
-                    <div class="absolute -left-16 -bottom-16 w-48 h-48 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+                    <div
+                        class="absolute -right-16 -top-16 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute -left-16 -bottom-16 w-48 h-48 bg-secondary/5 rounded-full blur-3xl pointer-events-none">
+                    </div>
 
                     <!-- Header -->
                     <div class="border-b border-slate-100 pb-6 mb-8 text-center space-y-2">
-                        <div class="flex items-center justify-center gap-2 text-primary font-semibold tracking-widest text-xs uppercase font-['Manrope']">
+                        <div
+                            class="flex items-center justify-center gap-2 text-primary font-semibold tracking-widest text-xs uppercase font-['Manrope']">
                             <span class="material-symbols-outlined text-sm font-semibold">shield_award</span>
                             <span>Official Scientometric Evaluation</span>
                         </div>
-                        <h2 class="font-display text-3xl font-extrabold text-slate-800 tracking-tight">Researcher Impact Report</h2>
+                        <h2 class="font-display text-3xl font-extrabold text-slate-800 tracking-tight">Researcher Impact
+                            Report</h2>
                         <div class="h-0.5 w-16 bg-secondary mx-auto rounded-full"></div>
                     </div>
 
@@ -347,23 +358,31 @@
                         <div class="space-y-6 flex flex-col justify-between">
                             <div class="space-y-4">
                                 <div>
-                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Researcher Name</p>
-                                    <p id="report_researcher" class="text-2xl font-bold text-slate-800 font-['Manrope'] mt-0.5">-</p>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Researcher
+                                        Name</p>
+                                    <p id="report_researcher"
+                                        class="text-2xl font-bold text-slate-800 font-['Manrope'] mt-0.5">-</p>
                                 </div>
-                                
+
                                 <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm space-y-3">
                                     <div>
-                                        <p class="text-xs font-medium text-slate-500 font-['Manrope']">Total WoS Citations</p>
+                                        <p class="text-xs font-medium text-slate-500 font-['Manrope']">Total WoS
+                                            Citations</p>
                                         <p class="mt-1 flex items-baseline gap-2">
-                                            <span id="report_total_citations" class="text-3xl font-extrabold text-slate-800 font-mono">-</span>
-                                            <span class="text-xs text-slate-400">across <span id="report_total_papers" class="font-semibold text-slate-600">-</span> publications</span>
+                                            <span id="report_total_citations"
+                                                class="text-3xl font-extrabold text-slate-800 font-mono">-</span>
+                                            <span class="text-xs text-slate-400">across <span id="report_total_papers"
+                                                    class="font-semibold text-slate-600">-</span> publications</span>
                                         </p>
-                                        <p class="text-[10px] text-slate-400 mt-1 italic">(Pre-selection: total retrieved record)</p>
+                                        <p class="text-[10px] text-slate-400 mt-1 italic">(Pre-selection: total
+                                            retrieved record)</p>
                                     </div>
                                     <div class="border-t border-slate-100 pt-2.5">
-                                        <p class="text-xs font-medium text-slate-500 font-['Manrope']">Selected for Analysis</p>
+                                        <p class="text-xs font-medium text-slate-500 font-['Manrope']">Selected for
+                                            Analysis</p>
                                         <p class="mt-1 flex items-baseline gap-2">
-                                            <span id="report_selected_papers" class="text-xl font-bold text-slate-800 font-mono">-</span>
+                                            <span id="report_selected_papers"
+                                                class="text-xl font-bold text-slate-800 font-mono">-</span>
                                             <span class="text-xs text-slate-400">verified publications</span>
                                         </p>
                                     </div>
@@ -372,39 +391,49 @@
 
                             <div class="flex items-center gap-2 text-slate-400 text-xs mt-auto">
                                 <span class="material-symbols-outlined text-sm">calendar_month</span>
-                                <span>Report generated on <strong id="report_date" class="text-slate-500">-</strong></span>
+                                <span>Report generated on <strong id="report_date"
+                                        class="text-slate-500">-</strong></span>
                             </div>
                         </div>
 
                         <!-- Right Panel: The p-Index Scores -->
                         <div class="flex flex-col gap-4 justify-center">
                             <!-- Standard p-Index (PI) Card -->
-                            <div class="bg-primary/5 hover:bg-primary/10 transition-all rounded-2xl p-5 border border-primary/10 flex items-center justify-between group">
+                            <div
+                                class="bg-primary/5 hover:bg-primary/10 transition-all rounded-2xl p-5 border border-primary/10 flex items-center justify-between group">
                                 <div class="space-y-1 text-left">
-                                    <p class="text-xs font-bold text-primary uppercase tracking-wider"><i>p</i>-Index (PI)</p>
-                                    <p class="text-[11px] text-slate-500 max-w-[180px]">Average citation percentile rank across selected articles.</p>
+                                    <p class="text-xs font-bold text-primary uppercase tracking-wider"><i>p</i>-Index
+                                        (PI)</p>
+                                    <p class="text-[11px] text-slate-500 max-w-[180px]">Average citation percentile rank
+                                        across selected articles.</p>
                                 </div>
                                 <div class="text-right">
-                                    <span id="report_pi_score" class="text-4xl font-black text-primary font-mono group-hover:scale-105 transition-transform inline-block">-</span>
+                                    <span id="report_pi_score"
+                                        class="text-4xl font-black text-primary font-mono group-hover:scale-105 transition-transform inline-block">-</span>
                                 </div>
                             </div>
 
                             <!-- Authorship-Weighted p-Index (OWPI) Card -->
-                            <div class="bg-secondary/5 hover:bg-secondary/10 transition-all rounded-2xl p-5 border border-secondary/10 flex items-center justify-between group">
+                            <div
+                                class="bg-secondary/5 hover:bg-secondary/10 transition-all rounded-2xl p-5 border border-secondary/10 flex items-center justify-between group">
                                 <div class="space-y-1 text-left">
-                                    <p class="text-xs font-bold text-secondary uppercase tracking-wider">Authorship-Weighted <i>p</i>-Index (OWPI)</p>
-                                    <p class="text-[11px] text-slate-500 max-w-[180px]">Percentile rank adjusted for co-authorship weight contribution.</p>
+                                    <p class="text-xs font-bold text-secondary uppercase tracking-wider">
+                                        Authorship-Weighted <i>p</i>-Index (OWPI)</p>
+                                    <p class="text-[11px] text-slate-500 max-w-[180px]">Percentile rank adjusted for
+                                        co-authorship weight contribution.</p>
                                 </div>
                                 <div class="text-right">
-                                    <span id="report_owpi_score" class="text-4xl font-black text-secondary font-mono group-hover:scale-105 transition-transform inline-block">-</span>
+                                    <span id="report_owpi_score"
+                                        class="text-4xl font-black text-secondary font-mono group-hover:scale-105 transition-transform inline-block">-</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <p id="result_description" class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4 hidden text-center">
+
+            <p id="result_description"
+                class="max-w-md mx-auto text-body-sm text-on-surface-variant pt-4 hidden text-center">
             </p>
         </section>
         <!-- Percentile Breakdown Table -->
@@ -509,7 +538,7 @@
             if (val) val.textContent = '-';
             const valWeighted = document.getElementById('result_value_weighted');
             if (valWeighted) valWeighted.textContent = '-';
-            
+
             // Clear new report elements
             const repResearcher = document.getElementById('report_researcher');
             if (repResearcher) repResearcher.textContent = '-';
@@ -525,7 +554,7 @@
             if (repPi) repPi.textContent = '-';
             const repOwpi = document.getElementById('report_owpi_score');
             if (repOwpi) repOwpi.textContent = '-';
-            
+
             const desc = document.getElementById('result_description');
             desc.innerHTML = '';
             desc.classList.add('hidden');
@@ -698,10 +727,10 @@
                        </button>`;
 
                 tr.innerHTML = `
-                    <td class="px-gutter py-4 w-1/2">
+                    <td class="px-gutter py-4 w-[35%]">
                         <p class="font-body-md font-semibold text-primary ${p.excluded ? 'line-through' : ''}">${p.title}</p>
                     </td>
-                    <td class="px-gutter py-4 w-1/3">
+                    <td class="px-gutter py-4 w-[25%]">
                         <p class="text-body-md text-on-surface-variant italic ${p.excluded ? 'line-through' : ''}">${p.journal}</p>
                     </td>
                     <td class="px-gutter py-4 font-mono text-slate-500">${p.year || '—'}</td>
@@ -776,7 +805,7 @@
 
                 if (data.pindex !== undefined && data.pindex !== null) {
                     document.getElementById('result_container').classList.remove('hidden');
-                    
+
                     // Set legacy standard elements (if any custom style/logic relies on them)
                     const resName = document.getElementById('result_name');
                     if (resName) resName.textContent = currentResearcherName || 'Researcher';
@@ -786,8 +815,8 @@
                     if (resVal) resVal.textContent = parseFloat(data.pindex).toFixed(2);
                     const resValW = document.getElementById('result_value_weighted');
                     if (resValW) {
-                        resValW.textContent = data.pindex_weighted !== undefined && data.pindex_weighted !== null 
-                            ? parseFloat(data.pindex_weighted).toFixed(2) 
+                        resValW.textContent = data.pindex_weighted !== undefined && data.pindex_weighted !== null
+                            ? parseFloat(data.pindex_weighted).toFixed(2)
                             : '—';
                     }
 
@@ -796,7 +825,7 @@
                     document.getElementById('report_total_citations').textContent = totalCitations.toLocaleString();
                     document.getElementById('report_total_papers').textContent = totalPapersCount;
                     document.getElementById('report_selected_papers').textContent = activePapers.length;
-                    
+
                     // Generate formatted date (e.g. "19 May 2026")
                     const dateObj = new Date();
                     const formattedDate = `${dateObj.getDate()} ${dateObj.toLocaleString('en-US', { month: 'long' })} ${dateObj.getFullYear()}`;
