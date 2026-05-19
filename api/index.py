@@ -1,5 +1,14 @@
 import sys
 import os
+from dotenv import load_dotenv
+
+# Load environment variables in order of Vercel precedence
+base_dir = os.path.dirname(os.path.dirname(__file__))
+for env_file in ['.env.development.local', '.env.local', '.env']:
+    env_path = os.path.join(base_dir, env_file)
+    if os.path.exists(env_path):
+        load_dotenv(env_path)
+
 from flask import Flask, request, jsonify, send_from_directory
 import pandas as pd
 import numpy as np
@@ -7,6 +16,8 @@ import json
 
 # Add the current directory to sys.path so framework can be imported
 sys.path.append(os.path.dirname(__file__))
+
+
 
 from framework.researcher import find_researcher_ids, get_papers_by_researcher_id
 from framework.pindex import compute_pindex
