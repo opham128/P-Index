@@ -133,7 +133,9 @@
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
                 <!-- Download PDF Button -->
-                <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf" download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf" title="Download Methodology PDF"
+                <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
+                    download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
+                    title="Download Methodology PDF"
                     class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
                     Download Paper
                     <span class="material-symbols-outlined text-sm">download</span>
@@ -247,7 +249,7 @@
                 </div>
                 <button id="search_btn"
                     class="w-full bg-primary text-on-primary font-h3 py-4 rounded-lg hover:shadow-lg transition-all active:scale-[0.98]">
-                    Search Academic Records
+                    Search Scholar Profiles
                 </button>
             </div>
         </section>
@@ -497,9 +499,11 @@
                     Read about the Methodology
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
-                <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf" download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf" title="Download Methodology PDF"
+                <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
+                    download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
+                    title="Download Methodology PDF"
                     class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
-                    Download Paper
+                    Download Reference Article
                     <span class="material-symbols-outlined text-sm">download</span>
                 </a>
             </nav>
@@ -866,7 +870,7 @@
                     : '<span class="text-slate-400 italic">N/A</span>';
 
                 const weightDisplay = p.weight !== null && p.weight !== undefined
-                    ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span> <span class="text-xs text-slate-400 font-mono">(w=${p.weight.toFixed(2)})</span>`
+                    ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span><br><span class="text-[10px] text-slate-400 font-mono mt-1 inline-block">Raw: ${(p.raw_weight || 0).toFixed(2)} | Norm: ${p.weight.toFixed(2)}</span>`
                     : '<span class="text-slate-400 italic">—</span>';
 
                 const prWeightedDisplay = p.pr_weighted !== null && p.pr_weighted !== undefined

@@ -137,6 +137,7 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
     out["pr"] = prs
     out["cell_size"] = cell_sizes
     out["weight"] = normalized_weights
+    out["raw_weight"] = raw_weights
     out["pr_weighted"] = weighted_prs
     out["author_rank"] = author_ranks
     out["num_authors"] = num_authors_list
