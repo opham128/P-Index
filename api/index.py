@@ -159,7 +159,7 @@ def calculate():
     # Use to_json -> loads to correctly handle numpy types (int64, float64) and NaN -> null
     ranked_cols = [
         'title', 'journal', 'year', 'times_cited', 'pr', 'cell_size', 
-        'document_types', 'weight', 'pr_weighted', 'author_rank', 'num_authors'
+        'document_types', 'weight', 'raw_weight', 'pr_weighted', 'author_rank', 'num_authors'
     ]
     cols_to_use = [c for c in ranked_cols if c in out_df.columns]
     ranked_df = out_df[cols_to_use].copy()

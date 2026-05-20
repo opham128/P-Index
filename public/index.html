@@ -473,7 +473,7 @@
                                 data-sort="pr" data-table="ranked">
                                 Percentile <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
                             </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-48 whitespace-nowrap"
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-64 whitespace-nowrap"
                                 data-sort="weight" data-table="ranked">
                                 Author Weight <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
@@ -870,7 +870,7 @@
                     : '<span class="text-slate-400 italic">N/A</span>';
 
                 const weightDisplay = p.weight !== null && p.weight !== undefined
-                    ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span><br><span class="text-[10px] text-slate-400 font-mono mt-1 inline-block">Raw: ${(p.raw_weight || 0).toFixed(2)} | Norm: ${p.weight.toFixed(2)}</span>`
+                    ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span> <span class="text-xs text-slate-400 font-mono ml-1 whitespace-nowrap">(Raw: ${(p.raw_weight !== null && p.raw_weight !== undefined ? p.raw_weight : 0).toFixed(2)} | Norm: ${p.weight.toFixed(2)})</span>`
                     : '<span class="text-slate-400 italic">—</span>';
 
                 const prWeightedDisplay = p.pr_weighted !== null && p.pr_weighted !== undefined
