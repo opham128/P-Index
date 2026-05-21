@@ -151,7 +151,8 @@ def calculate():
             pindex_weighted=pindex_weighted,
             anonymous_user_id=anonymous_user_id,
             total_papers_count=total_papers_count,
-            total_citations=total_citations
+            total_citations=total_citations,
+            api_usage=total_docs
         )
     except Exception as db_err:
         print(f"Failed to trigger db usage logging: {db_err}")

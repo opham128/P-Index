@@ -66,7 +66,12 @@ def keep_target_author(df, first_name, last_name):
 
     return df[df["authors"].apply(has_target)].reset_index(drop=True)
 
+_papers_cache = {}
+
 def get_papers_by_researcher_id(researcher_id, max_pages=20, limit=50):
+    if researcher_id in _papers_cache:
+        return _papers_cache[researcher_id].copy()
+
     rows = []
     seen = set()
     query = f'AI=("{researcher_id}")'
@@ -97,7 +102,10 @@ def get_papers_by_researcher_id(researcher_id, max_pages=20, limit=50):
 
     df = pd.DataFrame(rows)
     if df.empty:
+        _papers_cache[researcher_id] = df.copy()
         return df
 
     df = df.drop_duplicates(subset=["uid"], keep="first")
-    return df.reset_index(drop=True)
+    result_df = df.reset_index(drop=True)
+    _papers_cache[researcher_id] = result_df.copy()
+    return result_df

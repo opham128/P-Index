@@ -4,6 +4,7 @@ import concurrent.futures
 
 from framework.api import wos_search, get_records
 from framework.utils import parse_record, percentile_rank, is_target_author
+from framework.db import get_cached_journal_cell, save_journal_cell
 
 def get_author_rank_and_count(authors_str, first_name, last_name):
     if not authors_str or not isinstance(authors_str, str):
@@ -65,9 +66,16 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
     for _, row in pairs.iterrows():
         journal = str(row["journal"]).strip()
         year_raw = str(row["year"]).strip().split(".")[0]  # Normalize "2021.0" -> "2021"
+        year_int = int(year_raw)
         key = (journal, year_raw)
         try:
-            cell_cache[key] = get_journal_year_cell(journal, int(year_raw))
+            cached_df = get_cached_journal_cell(journal, year_int)
+            if cached_df is not None:
+                cell_cache[key] = cached_df
+            else:
+                fetched_df = get_journal_year_cell(journal, year_int)
+                save_journal_cell(journal, year_int, fetched_df)
+                cell_cache[key] = fetched_df
         except Exception as e:
             print(f"Error fetching cell for {journal} {year_raw}: {e}")
             if "WOS_RATE_LIMIT" in str(e):
