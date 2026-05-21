@@ -57,6 +57,16 @@ def init_db():
                     total_citations INTEGER
                 );
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS journal_year_baselines (
+                    id SERIAL PRIMARY KEY,
+                    journal VARCHAR(255),
+                    year INTEGER,
+                    citations_list TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(journal, year)
+                );
+            """)
             
             # Helper to add column if it does not exist (PostgreSQL)
             def add_postgres_col(col_name, col_type):
@@ -74,6 +84,7 @@ def init_db():
             add_postgres_col("anonymous_user_id", "VARCHAR(255)")
             add_postgres_col("total_papers_count", "INTEGER")
             add_postgres_col("total_citations", "INTEGER")
+            add_postgres_col("api_usage", "INTEGER")
         else:
             # SQLite schema
             cursor.execute("""
@@ -88,7 +99,18 @@ def init_db():
                     pindex_weighted REAL,
                     anonymous_user_id TEXT,
                     total_papers_count INTEGER,
-                    total_citations INTEGER
+                    total_citations INTEGER,
+                    api_usage INTEGER
+                );
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS journal_year_baselines (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    journal TEXT,
+                    year INTEGER,
+                    citations_list TEXT,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(journal, year)
                 );
             """)
             
@@ -102,13 +124,14 @@ def init_db():
             add_sqlite_col("anonymous_user_id", "TEXT")
             add_sqlite_col("total_papers_count", "INTEGER")
             add_sqlite_col("total_citations", "INTEGER")
+            add_sqlite_col("api_usage", "INTEGER")
                 
         conn.commit()
         conn.close()
     except Exception as e:
         print(f"Database initialization failed: {e}")
 
-def log_calculation(ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count=None, total_citations=None):
+def log_calculation(ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count=None, total_citations=None, api_usage=None):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -125,19 +148,92 @@ def log_calculation(ip_address, user_agent, researcher_name, papers_count, pinde
         if postgres_url:
             query = """
                 INSERT INTO calculation_logs 
-                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations, api_usage)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations))
+            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations, api_usage))
         else:
             query = """
                 INSERT INTO calculation_logs 
-                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations, api_usage)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """
-            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations))
+            cursor.execute(query, (ip_address, user_agent, researcher_name, papers_count, pindex, pindex_weighted, anonymous_user_id, total_papers_count, total_citations, api_usage))
             
         conn.commit()
         conn.close()
     except Exception as e:
         print(f"Database logging failed: {e}")
+
+import json
+from datetime import datetime, timedelta
+import pandas as pd
+
+def get_cached_journal_cell(journal, year):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        postgres_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
+        
+        if postgres_url:
+            cursor.execute("SELECT citations_list, created_at FROM journal_year_baselines WHERE journal = %s AND year = %s", (journal, year))
+        else:
+            cursor.execute("SELECT citations_list, created_at FROM journal_year_baselines WHERE journal = ? AND year = ?", (journal, year))
+            
+        row = cursor.fetchone()
+        conn.close()
+        
+        if row:
+            citations_list_json, created_at = row
+            if isinstance(created_at, str):
+                try:
+                    created_at = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+                except ValueError:
+                    created_at = datetime.strptime(created_at.split('.')[0], "%Y-%m-%d %H:%M:%S")
+                    
+            # Check if older than 7 days
+            if datetime.now().replace(tzinfo=None) - created_at.replace(tzinfo=None) > timedelta(days=7):
+                return None
+                
+            citations = json.loads(citations_list_json)
+            df = pd.DataFrame({"times_cited": citations})
+            return df
+            
+        return None
+    except Exception as e:
+        print(f"Failed to get cached journal cell: {e}")
+        return None
+
+def save_journal_cell(journal, year, cell_df):
+    if "times_cited" not in cell_df.columns or len(cell_df) == 0:
+        return
+        
+    try:
+        citations = cell_df["times_cited"].tolist()
+        citations_json = json.dumps(citations)
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        postgres_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("POSTGRES_PRISMA_URL")
+        if postgres_url:
+            query = """
+                INSERT INTO journal_year_baselines (journal, year, citations_list)
+                VALUES (%s, %s, %s)
+                ON CONFLICT (journal, year) DO UPDATE 
+                SET citations_list = EXCLUDED.citations_list,
+                    created_at = CURRENT_TIMESTAMP
+            """
+            cursor.execute(query, (journal, year, citations_json))
+        else:
+            query = """
+                INSERT OR REPLACE INTO journal_year_baselines (journal, year, citations_list, created_at)
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+            """
+            cursor.execute(query, (journal, year, citations_json))
+            
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"Failed to save journal cell to cache: {e}")
