@@ -6,8 +6,9 @@ import requests
 # The secondary key can be set via WOS_API_KEY_SECOND or hard‑coded as needed.
 PRIMARY_WOS_API_KEY = os.environ.get("WOS_API_KEY")
 SECONDARY_WOS_API_KEY = os.environ.get("WOS_API_KEY_SECOND")
+THIRD_WOS_API_KEY = os.environ.get("WOS_API_KEY_THIRD")
 # Ordered list of keys to try. If the first hits a rate limit, we fall back to the next.
-WOS_API_KEYS = [k for k in [PRIMARY_WOS_API_KEY, SECONDARY_WOS_API_KEY] if k]
+WOS_API_KEYS = [k for k in [PRIMARY_WOS_API_KEY, SECONDARY_WOS_API_KEY, THIRD_WOS_API_KEY] if k]
 
 
 BASE_URL = "https://api.clarivate.com/apis/wos-starter/v1"
