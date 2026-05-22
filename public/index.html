@@ -182,7 +182,9 @@
             <div class="border-t border-slate-100 pt-6 space-y-4">
                 <h3 class="text-lg font-semibold text-primary tracking-tight">How to use the <i>p</i>-Index calculator.
                 </h3>
-                <p class="text-sm text-slate-600"><strong>Please note that the calculator is limited by a # of daily API calls; this limit resets daily.</strong> This automated <i>p</i>-Index calculator is based on up-to-date records from the Web of Science (WoS) database. To use it, proceed as follows:</p>
+                <p class="text-sm text-slate-600"> This automated <i>p</i>-Index calculator is based on up-to-date
+                    records from the Web of Science (WoS) database. <strong>Please note that the calculator is limited
+                        by a # of daily API calls; this limit resets daily.</strong> To use it, proceed as follows:</p>
                 <ol class="list-decimal pl-5 text-sm text-slate-600 space-y-3">
                     <li>
                         <strong>Search</strong> for the researcher’s publication record on WoS. You may need to add the
@@ -935,6 +937,11 @@
                 sortData(key, table);
             }
         });
+    </script>
+    <script defer src="https://cdn.vercel.com/analytics.js"></script>
+    <script>
+        window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments) };
+        va('send', 'pageview');
     </script>
 </body>
 
