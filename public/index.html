@@ -267,38 +267,40 @@
             </div>
             <div
                 class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-50 border-b border-slate-200">
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[35%]"
-                                data-sort="title" data-table="papers">
-                                Title <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[25%]"
-                                data-sort="journal" data-table="papers">
-                                Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
-                                data-sort="year" data-table="papers">
-                                Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
-                                data-sort="document_types" data-table="papers">
-                                Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32 whitespace-nowrap"
-                                data-sort="times_cited" data-table="papers">
-                                Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
-                                <span class="font-label-caps block">Select/Unselect</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="papers_list" class="divide-y divide-slate-100">
-                        <!-- Loaded papers will appear here -->
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[900px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[35%]"
+                                    data-sort="title" data-table="papers">
+                                    Title <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[25%]"
+                                    data-sort="journal" data-table="papers">
+                                    Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                    data-sort="year" data-table="papers">
+                                    Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                    data-sort="document_types" data-table="papers">
+                                    Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-right cursor-pointer hover:text-primary transition-colors sortable w-32 whitespace-nowrap"
+                                    data-sort="times_cited" data-table="papers">
+                                    Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 text-on-surface-variant text-center w-28">
+                                    <span class="font-label-caps block">Select/Unselect</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="papers_list" class="divide-y divide-slate-100">
+                            <!-- Loaded papers will appear here -->
+                        </tbody>
+                    </table>
+                </div>
                 <div id="view_all_container" class="hidden p-4 bg-slate-50 text-center border-t border-slate-200">
                     <button class="text-body-sm text-secondary font-semibold hover:underline">View All
                         Publications</button>
@@ -454,51 +456,53 @@
             </div>
             <div
                 class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-50 border-b border-slate-200">
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[28%]"
-                                data-sort="title" data-table="ranked">
-                                Title <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[22%]"
-                                data-sort="journal" data-table="ranked">
-                                Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-20 whitespace-nowrap"
-                                data-sort="year" data-table="ranked">
-                                Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
-                                data-sort="document_types" data-table="ranked">
-                                Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
-                                data-sort="times_cited" data-table="ranked">
-                                Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-44"
-                                data-sort="cell_size" data-table="ranked">
-                                # Articles Same Journal Same Year <span
-                                    class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
-                                data-sort="pr" data-table="ranked">
-                                Percentile <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-64 whitespace-nowrap"
-                                data-sort="weight" data-table="ranked">
-                                Authorship <span class="text-[10px] ml-1 opacity-50">⇅</span>
-                            </th>
-                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-40 whitespace-nowrap"
-                                data-sort="weighted_citations" data-table="ranked">
-                                Weighted Citations <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="ranked_list" class="divide-y divide-slate-100">
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[1100px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[28%]"
+                                    data-sort="title" data-table="ranked">
+                                    Title <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant cursor-pointer hover:text-primary transition-colors sortable w-[22%]"
+                                    data-sort="journal" data-table="ranked">
+                                    Journal <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-20 whitespace-nowrap"
+                                    data-sort="year" data-table="ranked">
+                                    Year <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                    data-sort="document_types" data-table="ranked">
+                                    Type <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-24 whitespace-nowrap"
+                                    data-sort="times_cited" data-table="ranked">
+                                    Citations <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-44"
+                                    data-sort="cell_size" data-table="ranked">
+                                    # Articles Same Journal Same Year <span
+                                        class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-36 whitespace-nowrap"
+                                    data-sort="pr" data-table="ranked">
+                                    Percentile <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-64 whitespace-nowrap"
+                                    data-sort="weight" data-table="ranked">
+                                    Authorship <span class="text-[10px] ml-1 opacity-50">⇅</span>
+                                </th>
+                                <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-40 whitespace-nowrap"
+                                    data-sort="weighted_citations" data-table="ranked">
+                                    Weighted Citations <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranked_list" class="divide-y divide-slate-100">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
