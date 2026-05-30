@@ -507,8 +507,30 @@
         <!-- Excluded Papers Section -->
         <section id="excluded_section" class="hidden space-y-stack-sm pb-stack-lg">
             <h2 class="font-h2 text-h2 text-slate-500">Excluded Publications</h2>
-            <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
                 <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-[35%]">
+                                Title
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-[25%]">
+                                Journal
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-20 whitespace-nowrap">
+                                Year
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-24 whitespace-nowrap">
+                                Type
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-24 whitespace-nowrap">
+                                Citations
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-36 whitespace-nowrap">
+                                Percentile
+                            </th>
+                        </tr>
+                    </thead>
                     <tbody id="excluded_list" class="divide-y divide-slate-100 text-sm text-slate-600"></tbody>
                 </table>
             </div>
@@ -953,15 +975,15 @@
                     ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
                     : `<span class="text-slate-400 italic">N/A</span>`;
                 const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-50 transition-colors';
                 row.innerHTML = `
-            <td class="px-gutter py-3 w-[30%]"><p class="text-sm font-semibold text-primary">${p.title || '—'}</p></td>
-            <td class="px-gutter py-3 w-[20%]"><p class="text-xs text-on-surface-variant italic">${p.journal || '—'}</p></td>
-            <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
-            <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">${p.document_types || '—'}</td>
-            <td class="px-gutter py-3 text-center font-mono text-slate-700">${p.times_cited ?? '—'}</td>
-            <td class="px-gutter py-3 text-center font-mono text-slate-400">${p.cell_size ?? '—'}</td>
-            <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
-        `;
+                    <td class="px-gutter py-3 w-[35%]"><p class="text-sm font-semibold text-primary">${p.title || '—'}</p></td>
+                    <td class="px-gutter py-3 w-[25%]"><p class="text-xs text-on-surface-variant italic">${p.journal || '—'}</p></td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
+                    <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">${p.document_types || '—'}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+                    <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
+                `;
                 excludedList.appendChild(row);
             });
             excludedSection.classList.remove('hidden');
