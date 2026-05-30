@@ -417,7 +417,7 @@
                                     <p class="text-xs font-bold text-secondary uppercase tracking-wider">
                                         Authorship-Weighted <i>p</i>-Index</p>
                                     <p class="text-[11px] text-slate-500 max-w-[180px]">Percentile rank adjusted for
-                                        co-authorship (assuming ordered authorship)</p>
+                                        co-authorship (assuming ordered authorship).</p>
                                 </div>
                                 <div class="text-right">
                                     <span id="report_owpi_score"
@@ -501,6 +501,15 @@
                     </thead>
                     <tbody id="ranked_list" class="divide-y divide-slate-100">
                     </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Excluded Papers Section -->
+        <section id="excluded_section" class="hidden space-y-stack-sm pb-stack-lg">
+            <h2 class="font-h2 text-h2 text-slate-500">Excluded Publications</h2>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <tbody id="excluded_list" class="divide-y divide-slate-100 text-sm text-slate-600"></tbody>
                 </table>
             </div>
         </section>
@@ -885,7 +894,39 @@
                     // Default sort by percentile descending
                     sortConfig = { key: 'pr', direction: 'desc', table: 'ranked' };
                     currentRankedPapers.sort((a, b) => (b.pr ?? -1) - (a.pr ?? -1));
+                    
                     renderRankedPapers();
+
+                    // After rendering included papers, fetch and render excluded papers breakdown
+                    const excludedPapers = currentPapers.filter(p => p.excluded);
+                    if (excludedPapers.length > 0) {
+                        try {
+                            const exclRes = await fetch('/api/calculate', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    papers: excludedPapers,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    anonymous_user_id: getOrCreateAnonymousUserId(),
+                                    total_papers_count: totalPapersCount,
+                                    total_citations: totalCitations
+                                })
+                            });
+                            if (exclRes.ok) {
+                                const exclData = await exclRes.json();
+                                renderExcludedPapers(exclData.ranked_papers || []);
+                            } else {
+                                console.warn('Failed to fetch excluded papers breakdown');
+                                document.getElementById('excluded_section').classList.add('hidden');
+                            }
+                        } catch (e) {
+                            console.error('Error fetching excluded papers', e);
+                            document.getElementById('excluded_section').classList.add('hidden');
+                        }
+                    } else {
+                        document.getElementById('excluded_section').classList.add('hidden');
+                    }
                 } else {
                     alert('Could not calculate <i>p</i>-Index. Result was null.');
                 }
@@ -898,7 +939,39 @@
             }
         });
 
-        function renderRankedPapers() {
+        // Render excluded papers breakdown
+function renderExcludedPapers(excludedRanked) {
+    const excludedSection = document.getElementById('excluded_section');
+    const excludedList = document.getElementById('excluded_list');
+    excludedList.innerHTML = '';
+    if (!excludedRanked || excludedRanked.length === 0) {
+        excludedSection.classList.add('hidden');
+        return;
+    }
+    excludedRanked.forEach(p => {
+        const percentileDisplay = p.pr !== null && p.pr !== undefined
+            ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
+            : `<span class="text-slate-400 italic">N/A</span>`;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="px-gutter py-3 w-[30%]"><p class="text-sm font-semibold text-primary">${p.title || '—'}</p></td>
+            <td class="px-gutter py-3 w-[20%]"><p class="text-xs text-on-surface-variant italic">${p.journal || '—'}</p></td>
+            <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
+            <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">${p.document_types || '—'}</td>
+            <td class="px-gutter py-3 text-center font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+            <td class="px-gutter py-3 text-center font-mono text-slate-400">${p.cell_size ?? '—'}</td>
+            <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
+        `;
+        excludedList.appendChild(row);
+    });
+    excludedSection.classList.remove('hidden');
+}
+
+// Updated calculate handler to separate excluded papers
+// Inside calculate button handler after renderRankedPapers();
+// Replace the existing renderRankedPapers(); call with the following block:
+// (Will be inserted later in the same file at appropriate location)
+
             const rankedSection = document.getElementById('ranked_section');
             const rankedList = document.getElementById('ranked_list');
             rankedList.innerHTML = '';
