@@ -972,14 +972,6 @@ function renderExcludedPapers(excludedRanked) {
 // Replace the existing renderRankedPapers(); call with the following block:
 // (Will be inserted later in the same file at appropriate location)
 
-            const rankedSection = document.getElementById('ranked_section');
-            const rankedList = document.getElementById('ranked_list');
-            rankedList.innerHTML = '';
-
-            currentRankedPapers.forEach(p => {
-                const percentileDisplay = p.pr !== null && p.pr !== undefined
-                    ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
-                    : '<span class="text-slate-400 italic">N/A</span>';
 
                 const weightDisplay = p.weight !== null && p.weight !== undefined
                     ? `<span class="font-semibold text-slate-700">${p.author_rank} of ${p.num_authors}</span> <span class="text-xs text-slate-400 font-mono ml-1 whitespace-nowrap">Weight: ${(p.raw_weight !== null && p.raw_weight !== undefined ? p.raw_weight : 0).toFixed(2)}</span>`
