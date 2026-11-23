@@ -114,8 +114,8 @@
             vertical-align: middle;
         }
     </style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="js/distribution.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/distribution.js"></script>
 </head>
 
 <body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
@@ -354,25 +354,31 @@
             </div>
         </div>
         <!-- Distribution Section -->
-<section id="distribution_section" class="space-y-stack-lg max-w-[800px] mx-auto py-8">
-  <h2 class="font-h2 text-h2 text-primary">p‑Index Distribution</h2>
-  <p class="text-on-primary-container">Above is the distribution of p‑Index scores of all 340 Editors, Associate Editors, and Editorial Review Board (ERB) members of the Journal of Consumer Research and Journal of Consumer Psychology as of Q1 2022 (excluding irrelevant records such as corrections, conference abstracts, letters to Editors, etc.). If you want to evaluate how a given p‑Index score compares to this distribution of scholars, enter the p‑Index value below:</p>
-  <canvas id="raw_distribution_chart" class="w-full h-64"></canvas>
-  <div class="mt-4 flex items-center gap-2">
-    <label for="raw_input" class="text-sm font-medium text-primary">p‑Index value:</label>
-    <input id="raw_input" type="number" min="0" class="w-24 px-2 py-1 border rounded" placeholder="0" />
-    <span id="raw_percentile" class="text-sm text-primary"></span>
-  </div>
-  <h2 class="font-h2 text-h2 text-primary mt-8">Authorship‑Adjusted p‑Index Distribution</h2>
-  <p class="text-on-primary-container">Above is the distribution of authorship‑adjusted p‑Index scores of the same set of scholars. Enter the authorship‑adjusted p‑Index value to see its percentile:</p>
-  <canvas id="adjusted_distribution_chart" class="w-full h-64"></canvas>
-  <div class="mt-4 flex items-center gap-2">
-    <label for="adjusted_input" class="text-sm font-medium text-primary">Adjusted p‑Index:</label>
-    <input id="adjusted_input" type="number" min="0" class="w-24 px-2 py-1 border rounded" placeholder="0" />
-    <span id="adjusted_percentile" class="text-sm text-primary"></span>
-  </div>
-</section>
-<!-- Results Area -->
+        <section id="distribution_section" class="space-y-stack-lg max-w-[800px] mx-auto py-8">
+            <h2 class="font-h2 text-h2 text-primary">p‑Index Distribution</h2>
+            <p class="text-on-primary-container">Above is the distribution of p‑Index scores of all 340 Editors,
+                Associate Editors, and Editorial Review Board (ERB) members of the Journal of Consumer Research and
+                Journal of Consumer Psychology as of Q1 2022 (excluding irrelevant records such as corrections,
+                conference abstracts, letters to Editors, etc.). If you want to evaluate how a given p‑Index score
+                compares to this distribution of scholars, enter the p‑Index value below:</p>
+            <canvas id="raw_distribution_chart" class="w-full h-64"></canvas>
+            <div class="mt-4 flex items-center gap-2">
+                <label for="raw_input" class="text-sm font-medium text-primary">p‑Index value:</label>
+                <input id="raw_input" type="number" min="0" class="w-24 px-2 py-1 border rounded" placeholder="0" />
+                <span id="raw_percentile" class="text-sm text-primary"></span>
+            </div>
+            <h2 class="font-h2 text-h2 text-primary mt-8">Authorship‑Adjusted p‑Index Distribution</h2>
+            <p class="text-on-primary-container">Above is the distribution of authorship‑adjusted p‑Index scores of the
+                same set of scholars. Enter the authorship‑adjusted p‑Index value to see its percentile:</p>
+            <canvas id="adjusted_distribution_chart" class="w-full h-64"></canvas>
+            <div class="mt-4 flex items-center gap-2">
+                <label for="adjusted_input" class="text-sm font-medium text-primary">Adjusted p‑Index:</label>
+                <input id="adjusted_input" type="number" min="0" class="w-24 px-2 py-1 border rounded"
+                    placeholder="0" />
+                <span id="adjusted_percentile" class="text-sm text-primary"></span>
+            </div>
+        </section>
+        <!-- Results Area -->
         <section id="results_area"
             class="py-stack-lg border-t-2 border-dashed border-slate-200 max-w-[800px] mx-auto w-full">
             <div id="result_container" class="hidden">
