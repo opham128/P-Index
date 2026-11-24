@@ -132,9 +132,14 @@
                     Read about the Methodology
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
+                <!-- P-Index Norms Tab -->
+                <a href="distribution.html"
+                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                    P-Index Norms
+                </a>
                 <!-- Download PDF Button -->
                 <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
-                    download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
+                    download="Pham-Wu-Wang (2024) JCR - p-index%20of%20Thought%20Leadership.pdf"
                     title="Download Methodology PDF"
                     class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
                     Download Reference Article
@@ -143,7 +148,7 @@
             </div>
         </div>
     </header>
-    <main class="flex-grow w-full max-w-[1200px] mx-auto px-8 py-margin-page space-y-stack-lg">
+    <main class="flex-grow w-full max-w-[1400px] mx-auto px-8 py-margin-page space-y-stack-lg">
         <!-- Welcome & Description Block -->
         <section
             class="max-w-[800px] mx-auto bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
@@ -203,11 +208,26 @@
                     <li>
                         <strong>From</strong> the displayed list of publications, unselect the ones that are not
                         relevant for
-                        your analysis (e.g., duplicated records, correction notices, editorial notes).
+                        your analysis (e.g., duplicated records, correction notices, editorial notes, abstracts of
+                        conference proceedings).
                     </li>
                     <li>
                         <strong>Hit “Calculate.”</strong> Depending on the researcher’s number of publications and the
                         journals involved, the computations may take 2 – 3 minutes.
+                    </li>
+                    <li>
+                        <strong> The calculator will generate </strong> a Researcher Report containing the following
+                        information:
+                        a) the researcher’s raw p-index (PI), based on the selected publications; b) the researcher’s
+                        authorship-weighted p-index (OWPI),
+                        a variant that gives more weight to publications on which the researcher is the lead or sole
+                        author (see Abbas [2011] in Scientometrics
+                        for the weighting formula); c) the researcher’s total number of WoS citations for the selected
+                        publications; and
+                        d) an authorship-adjusted citation count. For transparency, the report also includes a
+                        publication-by-publication breakdown
+                        of the calculations, as well as a record of the WoS listings excluded from the analysis.
+
                     </li>
                 </ol>
             </div>
@@ -237,15 +257,7 @@
                             placeholder="e.g., Doe" type="text" />
                     </div>
                 </div>
-                <div class="space-y-2 mb-gutter">
-                    <label class="font-label-caps text-label-caps text-on-surface-variant">Organization <span
-                            class="text-xs font-normal normal-case text-slate-400">(optional)</span></label>
-                    <input id="org_name"
-                        class="w-full bg-slate-100 border-0 focus:ring-1 focus:ring-primary focus:bg-white rounded px-4 py-3 transition-all duration-200"
-                        placeholder="e.g., Columbia University" type="text" />
-                    <p class="text-xs text-slate-400">Use the preferred organization name from Web of Science. Narrows
-                        results to a specific institution.</p>
-                </div>
+
                 <button id="search_btn"
                     class="w-full bg-primary text-on-primary font-h3 py-4 rounded-lg hover:shadow-lg transition-all active:scale-[0.98]">
                     Search Scholar Profiles
@@ -354,8 +366,8 @@
                         <div class="space-y-6 flex flex-col justify-between">
                             <div class="space-y-4">
                                 <div>
-                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Researcher
-                                        Name</p>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                        Researcher's Name</p>
                                     <p id="report_researcher"
                                         class="text-2xl font-bold text-slate-800 font-['Manrope'] mt-0.5">-</p>
                                 </div>
@@ -370,8 +382,8 @@
                                             <span class="text-xs text-slate-400">across <span id="report_total_papers"
                                                     class="font-semibold text-slate-600">-</span> publications</span>
                                         </p>
-                                        <p class="text-[10px] text-slate-400 mt-1 italic">(Pre-selection: total
-                                            retrieved record)</p>
+                                        <p class="text-[10px] text-slate-400 mt-1 italic">(All records pre-selection)
+                                        </p>
                                     </div>
                                     <div class="border-t border-slate-100 pt-2.5">
                                         <p class="text-xs font-medium text-slate-500 font-['Manrope']">Selected for
@@ -416,11 +428,27 @@
                                     <p class="text-xs font-bold text-secondary uppercase tracking-wider">
                                         Authorship-Weighted <i>p</i>-Index</p>
                                     <p class="text-[11px] text-slate-500 max-w-[180px]">Percentile rank adjusted for
-                                        co-authorship weight contribution.</p>
+                                        co-authorship (assuming ordered authorship).</p>
                                 </div>
                                 <div class="text-right">
                                     <span id="report_owpi_score"
                                         class="text-4xl font-black text-secondary font-mono group-hover:scale-105 transition-transform inline-block">-</span>
+                                </div>
+                            </div>
+
+                            <!-- Author's Share of Citations Card -->
+                            <div
+                                class="bg-emerald-500/5 hover:bg-emerald-500/10 transition-all rounded-2xl p-5 border border-emerald-500/10 flex items-center justify-between group">
+                                <div class="space-y-1 text-left">
+                                    <p
+                                        class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
+                                        Authorship-Weighted Total Number of Citations</p>
+                                    <p class="text-[11px] text-slate-500 max-w-[180px]">Sum of (article citations ×
+                                        authorship weight) for selected articles.</p>
+                                </div>
+                                <div class="text-right">
+                                    <span id="report_author_weighted_citations"
+                                        class="text-4xl font-black text-emerald-600 dark:text-emerald-400 font-mono group-hover:scale-105 transition-transform inline-block">-</span>
                                 </div>
                             </div>
                         </div>
@@ -476,10 +504,50 @@
                                 data-sort="weight" data-table="ranked">
                                 Authorship <span class="text-[10px] ml-1 opacity-50">⇅</span>
                             </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant text-center cursor-pointer hover:text-primary transition-colors sortable w-40 whitespace-nowrap"
+                                data-sort="weighted_citations" data-table="ranked">
+                                Weighted Citations <span class="text-[10px] ml-1 opacity-50 text-nowrap">⇅</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="ranked_list" class="divide-y divide-slate-100">
                     </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Excluded Papers Section -->
+        <section id="excluded_section" class="hidden space-y-stack-sm pb-stack-lg">
+            <h2 class="font-h2 text-h2 text-slate-500">Excluded Publications</h2>
+            <div
+                class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(30,41,59,0.05)]">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-[35%]">
+                                Title
+                            </th>
+                            <th class="px-gutter py-4 font-label-caps text-on-surface-variant w-[25%]">
+                                Journal
+                            </th>
+                            <th
+                                class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-20 whitespace-nowrap">
+                                Year
+                            </th>
+                            <th
+                                class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-24 whitespace-nowrap">
+                                Type
+                            </th>
+                            <th
+                                class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-24 whitespace-nowrap">
+                                Citations
+                            </th>
+                            <th
+                                class="px-gutter py-4 font-label-caps text-on-surface-variant text-center w-36 whitespace-nowrap">
+                                Percentile
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="excluded_list" class="divide-y divide-slate-100 text-sm text-slate-600"></tbody>
                 </table>
             </div>
         </section>
@@ -488,9 +556,15 @@
     <footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 full-width mt-auto">
         <div
             class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
-            <div
-                class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
-                © 2026 Michel Tuan Pham. All Rights Reserved.
+            <div class="flex flex-col gap-2">
+                <div
+                    class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
+                    © 2026 Michel Tuan Pham. All Rights Reserved.
+                </div>
+                <div
+                    class="font-['Manrope'] text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
+                    Designed by Olivier Pham and Seungwoo Kim
+                </div>
             </div>
             <nav class="flex items-center gap-6">
                 <a class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
@@ -552,6 +626,8 @@
             if (repPi) repPi.textContent = '-';
             const repOwpi = document.getElementById('report_owpi_score');
             if (repOwpi) repOwpi.textContent = '-';
+            const repAuthorWeightedCit = document.getElementById('report_author_weighted_citations');
+            if (repAuthorWeightedCit) repAuthorWeightedCit.textContent = '-';
 
             const desc = document.getElementById('result_description');
             desc.innerHTML = '';
@@ -566,7 +642,6 @@
         document.getElementById('search_btn').addEventListener('click', async () => {
             const firstName = document.getElementById('first_name').value.trim();
             const lastName = document.getElementById('last_name').value.trim();
-            const orgName = document.getElementById('org_name').value.trim();
 
             if (!firstName || !lastName) {
                 alert('Please enter both First Name and Last Name.');
@@ -587,7 +662,7 @@
                 const res = await fetch('/api/search', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ first_name: firstName, last_name: lastName, org: orgName || null })
+                    body: JSON.stringify({ first_name: firstName, last_name: lastName })
                 });
 
                 if (res.status === 429) {
@@ -819,7 +894,7 @@
                     }
 
                     // Populate premium Researcher Impact Report fields
-                    document.getElementById('report_researcher').textContent = currentResearcherName || 'Researcher';
+                    document.getElementById('report_researcher').textContent = currentResearcherName || "Researcher's Name";
                     document.getElementById('report_total_citations').textContent = totalCitations.toLocaleString();
                     document.getElementById('report_total_papers').textContent = totalPapersCount;
                     document.getElementById('report_selected_papers').textContent = activePapers.length;
@@ -835,17 +910,60 @@
                         ? parseFloat(data.pindex_weighted).toFixed(2)
                         : '—';
 
+                    // Compute total weighted citations (author's share of citations)
+                    let totalWeightedCitations = 0;
+                    const rankedPapersList = data.ranked_papers || [];
+                    rankedPapersList.forEach(p => {
+                        const cit = p.times_cited || 0;
+                        const w = p.raw_weight !== null && p.raw_weight !== undefined ? p.raw_weight : 0;
+                        p.weighted_citations = cit * w;
+                        totalWeightedCitations += p.weighted_citations;
+                    });
+                    document.getElementById('report_author_weighted_citations').textContent = totalWeightedCitations.toFixed(2);
+
                     const uniqueJournals = new Set(activePapers.map(p => p.journal).filter(j => j && j.trim() !== '')).size;
                     const asOf = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                     desc.innerHTML = `Based on ${activePapers.length} verified publications across ${uniqueJournals} different journals.<br/><span class="text-xs text-slate-400 mt-1 block">As of ${asOf} &bull; <strong>${(data.total_docs || 0).toLocaleString()}</strong> reference documents retrieved.</span>`;
                     desc.classList.remove('hidden');
 
                     // Populate percentile breakdown table
-                    currentRankedPapers = data.ranked_papers || [];
+                    currentRankedPapers = rankedPapersList;
                     // Default sort by percentile descending
                     sortConfig = { key: 'pr', direction: 'desc', table: 'ranked' };
                     currentRankedPapers.sort((a, b) => (b.pr ?? -1) - (a.pr ?? -1));
+
                     renderRankedPapers();
+
+                    // After rendering included papers, fetch and render excluded papers breakdown
+                    const excludedPapers = currentPapers.filter(p => p.excluded);
+                    if (excludedPapers.length > 0) {
+                        try {
+                            const exclRes = await fetch('/api/calculate', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    papers: excludedPapers,
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    anonymous_user_id: getOrCreateAnonymousUserId(),
+                                    total_papers_count: totalPapersCount,
+                                    total_citations: totalCitations
+                                })
+                            });
+                            if (exclRes.ok) {
+                                const exclData = await exclRes.json();
+                                renderExcludedPapers(exclData.ranked_papers || []);
+                            } else {
+                                console.warn('Failed to fetch excluded papers breakdown');
+                                document.getElementById('excluded_section').classList.add('hidden');
+                            }
+                        } catch (e) {
+                            console.error('Error fetching excluded papers', e);
+                            document.getElementById('excluded_section').classList.add('hidden');
+                        }
+                    } else {
+                        document.getElementById('excluded_section').classList.add('hidden');
+                    }
                 } else {
                     alert('Could not calculate <i>p</i>-Index. Result was null.');
                 }
@@ -857,6 +975,34 @@
                 calcBtn.disabled = false;
             }
         });
+
+        // Render excluded papers breakdown
+        function renderExcludedPapers(excludedRanked) {
+            const excludedSection = document.getElementById('excluded_section');
+            const excludedList = document.getElementById('excluded_list');
+            excludedList.innerHTML = '';
+            if (!excludedRanked || excludedRanked.length === 0) {
+                excludedSection.classList.add('hidden');
+                return;
+            }
+            excludedRanked.forEach(p => {
+                const percentileDisplay = p.pr !== null && p.pr !== undefined
+                    ? `<span class="font-semibold ${p.pr >= 0.75 ? 'text-green-600' : p.pr >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr * 100).toFixed(1)}%</span>`
+                    : `<span class="text-slate-400 italic">N/A</span>`;
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-50 transition-colors';
+                row.innerHTML = `
+                    <td class="px-gutter py-3 w-[35%]"><p class="text-sm font-semibold text-primary">${p.title || '—'}</p></td>
+                    <td class="px-gutter py-3 w-[25%]"><p class="text-xs text-on-surface-variant italic">${p.journal || '—'}</p></td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-500">${p.year || '—'}</td>
+                    <td class="px-gutter py-3 text-center text-xs font-label-caps text-slate-500 uppercase tracking-tight">${p.document_types || '—'}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-slate-700">${p.times_cited ?? '—'}</td>
+                    <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
+                `;
+                excludedList.appendChild(row);
+            });
+            excludedSection.classList.remove('hidden');
+        }
 
         function renderRankedPapers() {
             const rankedSection = document.getElementById('ranked_section');
@@ -876,6 +1022,10 @@
                     ? `<span class="font-semibold ${p.pr_weighted >= 0.75 ? 'text-green-600' : p.pr_weighted >= 0.5 ? 'text-secondary' : 'text-slate-500'}">${(p.pr_weighted * 100).toFixed(1)}%</span>`
                     : '<span class="text-slate-400 italic">—</span>';
 
+                const weightedCitationsDisplay = p.weighted_citations !== null && p.weighted_citations !== undefined
+                    ? `<span class="font-semibold text-slate-700">${p.weighted_citations.toFixed(2)}</span>`
+                    : '<span class="text-slate-400 italic">—</span>';
+
                 const row = document.createElement('tr');
                 row.className = 'hover:bg-slate-50 transition-colors';
                 row.innerHTML = `
@@ -893,6 +1043,7 @@
                     <td class="px-gutter py-3 text-center font-mono text-slate-400">${p.cell_size ?? '—'}</td>
                     <td class="px-gutter py-3 text-center">${percentileDisplay}</td>
                     <td class="px-gutter py-3 text-center font-mono text-sm">${weightDisplay}</td>
+                    <td class="px-gutter py-3 text-center font-mono text-sm">${weightedCitationsDisplay}</td>
                 `;
                 rankedList.appendChild(row);
             });

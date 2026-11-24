@@ -106,7 +106,7 @@ def compute_pindex(papers_df, first_name=None, last_name=None):
         cell_sizes.append(cell_size)
 
         # Calculate raw weight if first_name and last_name are provided
-        if first_name and last_name and pr is not None:
+        if first_name and last_name:
             rank, num_authors = get_author_rank_and_count(row.get("authors", ""), first_name, last_name)
             if rank is not None and num_authors is not None:
                 weight = 2.0 * (num_authors - rank + 1) / (num_authors * (num_authors + 1))
