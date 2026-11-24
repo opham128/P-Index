@@ -8,8 +8,7 @@
     <title>p-Index Distributions</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -152,7 +151,8 @@
     <main class="flex-grow w-full max-w-[900px] mx-auto px-8 py-margin-page space-y-16">
 
         <!-- p-Index Distribution -->
-        <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
+        <section
+            class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
             <h2 class="text-2xl font-bold text-primary tracking-tight">p‑Index Distribution</h2>
             <div style="position:relative; height:340px;">
                 <canvas id="raw_distribution_chart"></canvas>
@@ -175,7 +175,8 @@
         </section>
 
         <!-- Authorship-Adjusted p-Index Distribution -->
-        <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
+        <section
+            class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
             <h2 class="text-2xl font-bold text-primary tracking-tight">Authorship‑Adjusted p‑Index Distribution</h2>
             <div style="position:relative; height:340px;">
                 <canvas id="adjusted_distribution_chart"></canvas>
@@ -199,6 +200,36 @@
         </section>
 
     </main>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 full-width mt-auto">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
+            <div class="flex flex-col gap-2">
+                <div
+                    class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
+                    © 2026 Michel Tuan Pham. All Rights Reserved.
+                </div>
+                <div
+                    class="font-['Manrope'] text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
+                    Designed by Olivier Pham and Seungwoo Kim
+                </div>
+            </div>
+            <nav class="flex items-center gap-6">
+                <a class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
+                    href="https://academic.oup.com/jcr/article/51/1/191/7672992" target="_blank">
+                    Read about the Methodology
+                    <span class="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+                <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
+                    download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
+                    title="Download Methodology PDF"
+                    class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                    Download Reference Article
+                    <span class="material-symbols-outlined text-sm">download</span>
+                </a>
+            </nav>
+        </div>
+    </footer>
 
     <script>
         window.addEventListener('DOMContentLoaded', function () {
@@ -208,4 +239,5 @@
         });
     </script>
 </body>
+
 </html>
