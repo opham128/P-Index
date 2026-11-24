@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p-Index Distributions</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
+                    colors: {
                         "on-tertiary-fixed": "#191c1e",
                         "on-tertiary": "#ffffff",
                         "surface-container": "#e5eeff",
@@ -65,172 +67,250 @@
                         "on-error": "#ffffff",
                         "on-primary-fixed-variant": "#3c475a"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
                     },
-                    "spacing": {
-                        "unit": "8px",
+                    spacing: {
+                        unit: "8px",
                         "stack-sm": "12px",
                         "margin-page": "48px",
                         "stack-lg": "48px",
                         "container-max": "1280px",
                         "stack-md": "24px",
-                        "gutter": "24px"
+                        gutter: "24px"
                     },
-                    "fontFamily": {
-                        "h2": ["Manrope"],
+                    fontFamily: {
+                        h2: ["Manrope"],
                         "label-caps": ["Manrope"],
                         "body-sm": ["Manrope"],
-                        "display": ["Manrope"],
+                        display: ["Manrope"],
                         "body-lg": ["Manrope"],
                         "body-md": ["Manrope"],
-                        "h3": ["Manrope"],
-                        "h1": ["Manrope"]
+                        h3: ["Manrope"],
+                        h1: ["Manrope"]
                     },
-                    "fontSize": {
-                        "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
-                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
-                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
-                        "display": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
-                        "h1": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    fontSize: {
+                        h2: ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+                        display: ["48px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        h3: ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+                        h1: ["32px", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "600" }]
                     }
-                },
-            },
-        }
+                }
+            }
+        };
     </script>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            display: block !important;
+            width: 100% !important;
+            flex-shrink: 0 !important;
+            position: relative;
+            z-index: 10;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
             vertical-align: middle;
         }
     </style>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/distribution.js"></script>
 </head>
 
-<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
-    <!-- TopAppBar -->
+<body class="bg-background text-on-background font-body-md antialiased">
+
+    <!-- Header -->
     <header
         class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-[0_4px_20px_rgba(30,41,59,0.05)] sticky top-0 z-50">
         <div class="flex justify-between items-center h-16 w-full max-w-[1280px] mx-auto px-8">
+
             <a href="index.html"
-                class="text-xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tighter font-['Manrope'] antialiased tracking-tight hover:opacity-80 transition-opacity">
+                class="text-xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight font-['Manrope'] hover:opacity-80 transition-opacity">
                 p-Index Calculator
             </a>
+
             <div class="flex items-center gap-6">
-                <!-- Methodology Link -->
+
                 <a href="https://academic.oup.com/jcr/article/51/1/191/7672992" target="_blank"
-                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
                     Read about the Methodology
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
-                <!-- Active: P-Index Norms -->
+
                 <span
                     class="text-primary font-['Manrope'] text-xs font-semibold uppercase tracking-wider border-b-2 border-primary pb-0.5">
                     P-Index Norms
                 </span>
-                <!-- Download PDF Button -->
+
                 <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
                     download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
                     title="Download Methodology PDF"
-                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+                    class="text-slate-500 dark:text-slate-400 font-['Manrope'] text-xs font-semibold uppercase tracking-wider hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
                     Download Reference Article
                     <span class="material-symbols-outlined text-sm">download</span>
                 </a>
+
             </div>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="flex-grow w-full max-w-[900px] mx-auto px-8 py-margin-page space-y-16">
 
         <!-- p-Index Distribution -->
         <section
             class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
-            <h2 class="text-2xl font-bold text-primary tracking-tight">p‑Index Distribution</h2>
+
+            <h2 class="text-2xl font-bold text-primary tracking-tight">
+                p-Index Distribution
+            </h2>
+
             <div style="position:relative; height:340px;">
                 <canvas id="raw_distribution_chart"></canvas>
             </div>
+
             <p class="text-sm text-slate-600 leading-relaxed">
-                Above is the distribution of p‑Index scores of all 340 Editors, Associate Editors, and
+                Above is the distribution of p-Index scores of all 340 Editors, Associate Editors, and
                 Editorial Review Board (ERB) members of the Journal of Consumer Research and
                 Journal of Consumer Psychology as of Q1 2022 (excluding removing irrelevant
                 records such as corrections, conference abstracts, letters to Editors, etc.). If you
-                want to evaluate how a given p‑Index score compares to relative to this distribution
-                of scholars, enter the p‑Index value here:
+                want to evaluate how a given p-Index score compares to relative to this distribution
+                of scholars, enter the p-Index value here:
             </p>
+
             <div class="flex items-center gap-4">
-                <label for="raw_input" class="text-sm font-semibold text-slate-700">p‑Index value:</label>
+                <label for="raw_input" class="text-sm font-semibold text-slate-700">
+                    p-Index value:
+                </label>
+
                 <input id="raw_input" type="number" min="0" step="0.1"
                     class="w-28 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                     placeholder="e.g., 0.55" />
+
                 <span id="raw_percentile" class="text-sm font-semibold text-primary"></span>
             </div>
+
         </section>
 
         <!-- Authorship-Adjusted p-Index Distribution -->
         <section
             class="bg-white border border-slate-200 rounded-2xl p-8 shadow-[0_4px_20px_rgba(30,41,59,0.04)] space-y-6">
-            <h2 class="text-2xl font-bold text-primary tracking-tight">Authorship‑Adjusted p‑Index Distribution</h2>
+
+            <h2 class="text-2xl font-bold text-primary tracking-tight">
+                Authorship-Adjusted p-Index Distribution
+            </h2>
+
             <div style="position:relative; height:340px;">
                 <canvas id="adjusted_distribution_chart"></canvas>
             </div>
+
             <p class="text-sm text-slate-600 leading-relaxed">
-                Above is the distribution of authorship-adjusted p‑Index scores of all 340 Editors,
+                Above is the distribution of authorship-adjusted p-Index scores of all 340 Editors,
                 Associate Editors, and Editorial Review Board (ERB) members of the Journal of
                 Consumer Research and Journal of Consumer Psychology as of Q1 2022 (excluding
                 removing irrelevant records such as corrections, conference abstracts, letters to
-                Editors, etc.). If you want to evaluate how a given authorship-adjusted p‑Index score
+                Editors, etc.). If you want to evaluate how a given authorship-adjusted p-Index score
                 compares to relative to this distribution of scholars, enter the authorship-adjusted
-                p‑Index value here:
+                p-Index value here:
             </p>
+
             <div class="flex items-center gap-4">
-                <label for="adjusted_input" class="text-sm font-semibold text-slate-700">Adjusted p‑Index value:</label>
+                <label for="adjusted_input" class="text-sm font-semibold text-slate-700">
+                    Adjusted p-Index value:
+                </label>
+
                 <input id="adjusted_input" type="number" min="0" step="0.1"
                     class="w-28 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                     placeholder="e.g., 0.50" />
+
                 <span id="adjusted_percentile" class="text-sm font-semibold text-primary"></span>
             </div>
+
         </section>
 
     </main>
+
     <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 full-width mt-auto">
+    <footer id="page-footer"
+        class="w-full bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+
         <div
             class="flex flex-col md:flex-row justify-between items-center py-12 px-8 w-full max-w-[1280px] mx-auto gap-8">
+
             <div class="flex flex-col gap-2">
+
                 <div
                     class="font-['Manrope'] text-xs font-medium uppercase tracking-widest text-slate-600 dark:text-slate-400">
                     © 2026 Michel Tuan Pham. All Rights Reserved.
                 </div>
+
                 <div
                     class="font-['Manrope'] text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
                     Designed by Olivier Pham and Seungwoo Kim
                 </div>
+
             </div>
+
             <nav class="flex items-center gap-6">
+
                 <a class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
                     href="https://academic.oup.com/jcr/article/51/1/191/7672992" target="_blank">
+
                     Read about the Methodology
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
+
                 </a>
+
                 <a href="/Pham-Wu-Wang%20(2024)%20JCR%20-%20p-index%20of%20Thought%20Leadership.pdf"
                     download="Pham-Wu-Wang (2024) JCR - p-index of Thought Leadership.pdf"
                     title="Download Methodology PDF"
                     class="font-['Manrope'] text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
+
                     Download Reference Article
                     <span class="material-symbols-outlined text-sm">download</span>
+
                 </a>
+
             </nav>
+
         </div>
+
     </footer>
 
+    <!-- Initialize Charts -->
     <script>
         window.addEventListener('DOMContentLoaded', function () {
             if (window.pIndexDistribution) {
@@ -238,6 +318,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
