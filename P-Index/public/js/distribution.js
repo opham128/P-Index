@@ -22,13 +22,11 @@ function buildBins(dist) {
     .map(([start, freq]) => ({ center: (+start + BIN_W / 2) / 100, freq }));
 }
 
-/** Compute mean + std of original integer-bin distribution (values in 0–1 scale) */
-function computeStats(dist) {
-  const total = dist.reduce((s, d) => s + d.freq, 0);
-  const mean  = dist.reduce((s, d) => s + (d.bin / 100) * d.freq, 0) / total;
-  const vari  = dist.reduce((s, d) => s + d.freq * Math.pow(d.bin / 100 - mean, 2), 0) / total;
-  return { mean, std: Math.sqrt(vari), total };
-}
+// Exact summary stats (0–1 scale) computed from the unrounded CSV columns:
+//   PI   (col 27): n = 340, mean = 0.51213048471, sample std = 0.139096061766 (pop std = 0.138891358106)
+//   OWPI (col 31): n = 340, mean = 0.509291658248, sample std = 0.147372329089 (pop std = 0.147155445485)
+const rawStats      = { mean: 0.51213048471,  std: 0.139096061766, total: 340 };
+const adjustedStats = { mean: 0.509291658248, std: 0.147372329089, total: 340 };
 
 function normalPDF(x, mean, std) {
   return Math.exp(-0.5 * Math.pow((x - mean) / std, 2)) / (std * Math.sqrt(2 * Math.PI));
@@ -47,12 +45,11 @@ function normalCurve(mean, std, total) {
 
 // ── chart factory ─────────────────────────────────────────────────────────────
 
-function createHistogram(canvasId, dist, title, barColor) {
+function createHistogram(canvasId, dist, stats, title, barColor) {
   const ctx = document.getElementById(canvasId)?.getContext('2d');
   if (!ctx) return;
 
   const bins  = buildBins(dist);
-  const stats = computeStats(dist);
   const curve = normalCurve(stats.mean, stats.std, stats.total);
 
   const meanLabel = stats.mean.toFixed(3);
@@ -74,7 +71,7 @@ function createHistogram(canvasId, dist, title, barColor) {
         },
         {
           type: 'line',
-          label: `Normal (μ = ${meanLabel}, σ = ${stdLabel})`,
+          label: `Normal (μ = ${meanLabel}, σ = ${stdLabel}, n = ${stats.total})`,
           data: curve,
           borderColor: 'rgba(220,38,38,0.85)',
           borderWidth: 2.5,
@@ -157,8 +154,8 @@ function computePercentile(value01, dist) {
 
 window.pIndexDistribution = {
   init() {
-    createHistogram('raw_distribution_chart',      rawDistribution,      'p‑Index Distribution',                       'rgba(59,130,246,0.55)');
-    createHistogram('adjusted_distribution_chart', adjustedDistribution, 'Authorship‑Adjusted p‑Index Distribution',   'rgba(16,185,129,0.55)');
+    createHistogram('raw_distribution_chart',      rawDistribution,      rawStats,      'p‑Index Distribution',                     'rgba(59,130,246,0.55)');
+    createHistogram('adjusted_distribution_chart', adjustedDistribution, adjustedStats, 'Authorship‑Adjusted p‑Index Distribution', 'rgba(16,185,129,0.55)');
 
     // Wire percentile inputs (users enter values in 0–1 scale)
     function hookInput(inputId, spanId, distArr) {
